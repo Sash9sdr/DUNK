@@ -8,19 +8,51 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="/index.css" rel="stylesheet">
-  <script type="importmap">
+    
+    <!-- Tailwind CSS via CDN for guaranteed rendering in all environments -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              menu: {
+                bg: '#0a0a0a',
+                card: '#121212',
+                surface: '#1f1f1f',
+                border: '#2a2a2a',
+                text: '#ededed',
+                muted: '#888888',
+                accent: '#ffffff',
+                highlight: 'rgb(var(--highlight-rgb) / <alpha-value>)', 
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Manrope', 'sans-serif'],
+            },
+            backgroundImage: {
+              'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+            }
+          }
+        }
+      }
+    </script>
+    
+    <script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.0/client",
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24",
     "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
-    "vite": "https://aistudiocdn.com/vite@^7.2.4"
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
   }
 }
 </script>
-</head>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
