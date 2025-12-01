@@ -18,10 +18,10 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
   return (
     <div className={`
       relative group flex flex-col h-full rounded-2xl transition-all duration-300 overflow-hidden isolate
-      backdrop-blur-md
+      /* OPTIMIZATION: Removed backdrop-blur-md to prevent lag on phones. Used solid transparent color instead. */
       ${isHighlighted 
-        ? 'bg-gradient-to-br from-menu-highlight/10 to-transparent shadow-[0_8px_32px_0_rgba(214,64,69,0.15)]' 
-        : 'bg-white/[0.03] hover:bg-white/[0.06] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]'
+        ? 'bg-[#1a0505]/95 shadow-[0_8px_32px_0_rgba(214,64,69,0.15)]' 
+        : 'bg-[#121212]/90 hover:bg-[#1a1a1a]/95 shadow-[0_4px_20px_0_rgba(0,0,0,0.4)]'
       }
     `}>
       {/* 3D Glass Border Effect */}
