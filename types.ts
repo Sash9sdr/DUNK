@@ -1,3 +1,4 @@
+
 export interface MenuVariation {
   name?: string;
   weight?: string;
@@ -12,6 +13,7 @@ export interface MenuItem {
   weight?: string; // Fallback for simple items
   isSpicy?: boolean;
   isHighlighted?: boolean;
+  image?: string; // URL to the image of the dish
 }
 
 export interface MenuSectionData {

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MenuSectionData } from '../types';
 import { MenuItemCard } from './MenuItemCard';
@@ -61,13 +62,13 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ section, index }) => {
         </h3>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {section.items.map((item, idx) => (
-          <motion.div key={`${section.id}-${idx}`} variants={itemVariants}>
+          <motion.div layout key={`${section.id}-${idx}`} variants={itemVariants}>
             <MenuItemCard item={item} />
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </motion.section>
   );
 };

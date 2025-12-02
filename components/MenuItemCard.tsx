@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { MenuItem } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,7 +9,9 @@ interface MenuItemCardProps {
 
 export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
   const [selectedVarIndex, setSelectedVarIndex] = useState(0);
+  const [showImage, setShowImage] = useState(false);
   const isHighlighted = item.isHighlighted;
+  const hasImage = !!item.image;
 
   // Determine current display values based on selection or defaults
   const currentVariation = item.variations ? item.variations[selectedVarIndex] : null;
@@ -33,20 +36,24 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
       <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
       
       {/* Content Container */}
-      <div className="p-5 flex flex-col h-full z-10">
+      <div className="p-5 flex flex-col h-full z-10 relative">
         
-        {/* Header: Title and Main Price */}
+        {/* Header: Title, Controls and Main Price */}
         <div className="flex justify-between items-start gap-3 mb-2">
-          <h3 className={`font-display font-bold text-lg leading-tight transition-colors ${isHighlighted ? 'text-white' : 'text-menu-text group-hover:text-white'}`}>
-            {item.title}
-            {item.isSpicy && (
-               <span className="inline-flex items-center justify-center ml-2 bg-menu-highlight text-white rounded-full px-2 py-[2px] text-[10px] font-bold uppercase tracking-wider align-middle shadow-[0_0_10px_rgba(214,64,69,0.5)]">
-                 Hot
-               </span>
-            )}
-          </h3>
+          <div className="flex flex-col gap-1 flex-1">
+             <h3 className={`font-display font-bold text-lg leading-tight transition-colors ${isHighlighted ? 'text-white' : 'text-menu-text group-hover:text-white'}`}>
+               {item.title}
+               {item.isSpicy && (
+                  <span className="inline-flex items-center justify-center ml-2 bg-menu-highlight text-white rounded-full px-2 py-[2px] text-[10px] font-bold uppercase tracking-wider align-middle shadow-[0_0_10px_rgba(214,64,69,0.5)]">
+                    Hot
+                  </span>
+               )}
+             </h3>
+             {weight && <span className="text-[10px] text-menu-muted uppercase tracking-wider font-medium">{weight}</span>}
+          </div>
 
-          <div className="flex flex-col items-end shrink-0 pl-2">
+          <div className="flex items-center gap-3 shrink-0">
+             {/* Price */}
              <AnimatePresence mode="wait">
                 <motion.span 
                   key={price}
@@ -58,13 +65,38 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
                   {price} ₽
                 </motion.span>
              </AnimatePresence>
-             {weight && <span className="text-[10px] text-menu-muted uppercase tracking-wider font-medium">{weight}</span>}
           </div>
         </div>
 
+        {/* EXPANDABLE IMAGE SECTION */}
+        <AnimatePresence>
+          {showImage && hasImage && (
+            <motion.div
+              initial={{ height: 0, opacity: 0, marginTop: 0 }}
+              animate={{ height: 'auto', opacity: 1, marginTop: 12 }}
+              exit={{ height: 0, opacity: 0, marginTop: 0 }}
+              transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }} // smooth ease-out-quart
+              className="overflow-hidden rounded-xl mb-2"
+            >
+              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-black/20 shadow-inner border border-white/5">
+                {/* Loader Placeholder */}
+                <div className="absolute inset-0 bg-white/5 animate-pulse z-0" />
+                <img 
+                  src={item.image} 
+                  alt={item.title} 
+                  className="relative z-10 w-full h-full object-cover transform transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                />
+                {/* Inner Shadow overlay */}
+                <div className="absolute inset-0 z-20 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none rounded-xl" />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Description */}
         {item.description && (
-          <p className="text-sm text-menu-muted/90 font-normal leading-relaxed mb-4">
+          <p className={`text-sm text-menu-muted/90 font-normal leading-relaxed my-3 ${hasImage ? 'pr-10' : ''}`}>
             {item.description}
           </p>
         )}
@@ -78,7 +110,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
              )}
              
              {/* Chips Scroll Container */}
-             <div className="flex flex-wrap gap-2">
+             <div className={`flex flex-wrap gap-2 ${hasImage ? 'pr-10' : ''}`}>
                {item.variations.map((v, idx) => {
                  const isSelected = selectedVarIndex === idx;
                  return (
@@ -101,6 +133,42 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
           </div>
         )}
       </div>
+
+      {/* FLOATING ACTION BUTTON FOR IMAGE (Bottom Right) */}
+      {hasImage && (
+        <button 
+            onClick={(e) => {
+                e.stopPropagation();
+                setShowImage(!showImage);
+            }}
+            className={`
+                absolute bottom-4 right-4 z-30
+                flex items-center justify-center w-10 h-10 rounded-full 
+                shadow-[0_4px_12px_rgba(0,0,0,0.5)] transition-all duration-300 transform active:scale-90
+                ${showImage 
+                    ? 'bg-white text-black hover:bg-gray-200' 
+                    : 'bg-menu-highlight text-white hover:brightness-110 shadow-[0_0_15px_rgba(214,64,69,0.4)]'
+                }
+            `}
+        >
+            {showImage ? (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                   <line x1="18" y1="6" x2="6" y2="18"></line>
+                   <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                   <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                   <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+            )}
+            
+            {/* Pulse Ring (only when closed) */}
+            {!showImage && (
+                <span className="absolute inset-0 rounded-full animate-ping bg-menu-highlight opacity-40 pointer-events-none"></span>
+            )}
+        </button>
+      )}
     </div>
   );
 };
