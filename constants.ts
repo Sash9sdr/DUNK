@@ -17,6 +17,7 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       },
       {
         title: 'Креветка с песто',
+        image: 'https://images.unsplash.com/photo-1606850246029-dd00bd5d0e1a?q=80&w=800&auto=format&fit=crop',
         description: 'Микс салатов, креветки, черри, пармезан, соус песто.',
         variations: [{ weight: '200 г', price: 480 }],
       },
@@ -73,6 +74,7 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       },
       {
         title: 'Пад тай',
+        image: 'https://images.unsplash.com/photo-1559314809-0d155014e29e?q=80&w=800&auto=format&fit=crop',
         description: 'Овощи, яйцо, фирменный соус пад тай, кунжут, зелёный лук.',
         variations: [
           { name: 'овощной', weight: '320 г', price: 390 },
@@ -83,6 +85,7 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       {
         title: 'Зелёный карри',
         isSpicy: true,
+        image: 'https://images.unsplash.com/photo-1626804475297-411d8c6b7eb6?q=80&w=800&auto=format&fit=crop',
         description: 'Овощи, яйцо, соус зелёный карри, кунжут, зелёный лук.',
         variations: [
           { name: 'овощной', weight: '320 г', price: 390 },
@@ -137,11 +140,13 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       },
       {
         title: 'Филадельфия унаги',
+        image: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?q=80&w=800&auto=format&fit=crop',
         description: 'Угорь, сливочный сыр, соус унаги, кунжут.',
         variations: [{ weight: '4 шт', price: 550 }],
       },
       {
         title: 'Калифорния',
+        image: 'https://images.unsplash.com/photo-1605493666455-83569805560b?q=80&w=800&auto=format&fit=crop',
         description: 'Лосось, креветка, авокадо, икра.',
         variations: [{ weight: '4 шт', price: 510 }],
       },
@@ -179,9 +184,19 @@ export const KITCHEN_MENU: MenuSectionData[] = [
   },
   {
     id: 'sneki',
-    title: 'Снеки',
+    title: 'Закуски',
     note: 'Все снеки подаются с соусом на выбор.',
     items: [
+      { 
+        title: 'Лепёшка перуанская', 
+        description: 'Лепёшка, моцарелла, овощи, соус пад-тай, майонез',
+        variations: [{ weight: '230 г', price: 320 }] 
+      },
+      { 
+        title: 'Лепёшка с индейкой', 
+        description: 'Лепёшка, индейка, моцарелла, черри, микс салата, лук красный, соус карри ананас',
+        variations: [{ weight: '230 г', price: 320 }] 
+      },
       { title: 'Картофельные дольки', variations: [{ weight: '200 г', price: 320 }] },
       { title: 'Картофель фри', variations: [{ weight: '200 г', price: 320 }] },
       { title: 'Луковые кольца фри', variations: [{ weight: '10 шт', price: 270 }] },
@@ -215,11 +230,20 @@ export const KITCHEN_MENU: MenuSectionData[] = [
     id: 'deserty',
     title: 'Десерты',
     items: [
-      { title: 'Чизкейк карамель‑арахис', variations: [{ weight: '100 г', price: 250 }] },
-      { title: 'Красный бархат', variations: [{ weight: '100 г', price: 250 }] },
+      { 
+        title: 'Чизкейк карамель‑арахис', 
+        image: 'https://images.unsplash.com/photo-1508737027454-e6454ef45afd?q=80&w=800&auto=format&fit=crop',
+        variations: [{ weight: '100 г', price: 250 }] 
+      },
+      { 
+        title: 'Красный бархат', 
+        image: 'https://images.unsplash.com/photo-1586788224331-947f68671cf1?q=80&w=800&auto=format&fit=crop',
+        variations: [{ weight: '100 г', price: 250 }] 
+      },
       {
         title: 'Десерт DUNK',
         isHighlighted: true,
+        image: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=800&auto=format&fit=crop',
         variations: [{ weight: '110 г', price: 300 }],
       },
     ],
@@ -228,28 +252,40 @@ export const KITCHEN_MENU: MenuSectionData[] = [
 
 export const BAR_MENU: MenuSectionData[] = [
   {
+    id: 'kofe',
+    title: 'Кофе',
+    note: 'По Вашему желанию можем добавить 10мл сиропа из нашего ассортимента. \nИспользуется классическое молоко, альтернативных вариантов не имеется.',
+    items: [
+      { title: 'Эспрессо', variations: [{ weight: '30 мл', price: 180 }] },
+      { title: 'Американо', variations: [{ weight: '180 мл', price: 180 }] },
+      { title: 'Капучино', variations: [{ weight: '300 мл', price: 220 }] },
+      { title: 'Латте', variations: [{ weight: '300 мл', price: 220 }] },
+      { title: 'Флэт Уайт', variations: [{ weight: '180 мл', price: 260 }] },
+    ],
+  },
+  {
     id: 'chay',
     title: 'Чай',
     items: [
-      { title: 'Чёрный', price: 280 },
-      { title: 'Зелёный', price: 280 },
-      { title: 'С бергамотом', price: 280 },
-      { title: 'Травяной', price: 280 },
+      { title: 'Ассам', variations: [{ weight: '500 мл', price: 320 }] },
+      { title: 'Сенча', variations: [{ weight: '500 мл', price: 320 }] },
+      { title: 'Травяной сбор', variations: [{ weight: '500 мл', price: 320 }] },
     ],
   },
   {
     id: 'firm-chay',
     title: 'Фирменный чай',
     items: [
-      { title: 'Облепиха, Груша, Розмарин', variations: [{ weight: '1000 мл', price: 440 }] },
-      { title: 'Имбирь, Лимон, Мёд, Мята', variations: [{ weight: '1000 мл', price: 440 }] },
-      { title: 'Гранатовый DUNK', variations: [{ weight: '1000 мл', price: 440 }] },
-      { title: 'Малина, Клюква, Гвоздика', variations: [{ weight: '1000 мл', price: 440 }] },
+      { title: 'Облепиха, Груша, Розмарин', variations: [{ weight: '800 мл', price: 440 }] },
+      { title: 'Имбирь, Лимон, Мёд, Мята', variations: [{ weight: '800 мл', price: 440 }] },
+      { title: 'Гранатовый DUNK', variations: [{ weight: '800 мл', price: 440 }] },
+      { title: 'Малина, Клюква, Гвоздика', variations: [{ weight: '800 мл', price: 440 }] },
     ],
   },
   {
     id: 'kitay-chay',
     title: 'Китайский чай',
+    note: 'Проведём для Вас чайную церемонию в которую входит: чабань, гайвань, чахай, чайный дух, пиалы, и расскажем о самом чае и о его эффектах.',
     items: [
       { title: 'Шу Пуэр', price: 690 },
       { title: 'Шен Пуэр', price: 690 },
@@ -262,51 +298,118 @@ export const BAR_MENU: MenuSectionData[] = [
     id: 'limonady',
     title: 'Лимонады',
     items: [
-      { title: 'Манго - Жасмин', price: 340 },
-      { title: 'Ежевика - Гранат', price: 340 },
-      { title: 'Груша - Алыча', price: 340 },
-      { title: 'Малина - Базилик', price: 340 },
-      { title: 'Лаванда - Ирга - Чёрная Смородина', price: 340 },
-      { title: 'Личи - Мандарин', price: 340 },
+      { title: 'Манго - Жасмин', variations: [{ weight: '470 мл', price: 340 }] },
+      { title: 'Ежевика - Гранат', variations: [{ weight: '470 мл', price: 340 }] },
+      { title: 'Груша - Алыча', variations: [{ weight: '470 мл', price: 340 }] },
+      { title: 'Малина - Базилик', variations: [{ weight: '470 мл', price: 340 }] },
+      { title: 'Лаванда - Ирга - Чёрная Смородина', variations: [{ weight: '470 мл', price: 340 }] },
+      { title: 'Личи - Мандарин', variations: [{ weight: '470 мл', price: 340 }] },
     ],
   },
   {
     id: 'kokteyli',
     title: 'Коктейли',
+    note: 'Все коктейли на джине можем сделать безалкогольными',
     items: [
       { 
+        title: 'Aperol Spritz', 
+        price: 600,
+        weight: '285 мл',
+        alcoholStrength: 'light',
+        description: 'Апероль, игристое, содовая',
+        image: 'https://images.unsplash.com/photo-1560512823-8db03e1b0949?q=80&w=800&auto=format&fit=crop'
+      },
+      { 
         title: 'Negroni', 
-        price: 530,
+        price: 540,
+        weight: '105 мл',
+        alcoholStrength: 'medium',
+        description: 'Джин, биттер, вермут',
         image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=800&auto=format&fit=crop'
       },
       { 
-        title: 'Aperol Spritz', 
-        price: 520,
-        image: 'https://images.unsplash.com/photo-1560512823-8db03e1b0949?q=80&w=800&auto=format&fit=crop'
+        title: 'Gin Peach', 
+        price: 480, 
+        weight: '105 мл',
+        alcoholStrength: 'medium',
+        description: 'Джин, персик, лаванда'
       },
-      { title: 'Gin Fizz', price: 450 },
-      { title: 'Gin Peach', price: 480 },
-      { title: 'Gin Basil Smash', price: 480 },
-      { title: 'Ecstazy', price: 480 },
-      { title: 'Cosmopolitan', price: 420 },
-      { title: 'Pavlova', price: 520 },
-      { title: 'Sicily', price: 520 },
+      { 
+        title: 'Gin Basil Smash', 
+        price: 480,
+        weight: '120 мл',
+        alcoholStrength: 'medium',
+        description: 'Джин, базилик, лимон'
+      },
+      { 
+        title: 'Gin Fizz', 
+        price: 480, 
+        weight: '140 мл',
+        alcoholStrength: 'medium',
+        description: 'Джин, лимон, содовая'
+      },
+      { 
+        title: 'Ecstazy', 
+        price: 480, 
+        weight: '150 мл',
+        alcoholStrength: 'light',
+        description: 'Водка, малина, кокос, ананас'
+      },
+      { 
+        title: 'Cosmopolitan', 
+        price: 480, 
+        weight: '115 мл',
+        alcoholStrength: 'medium',
+        description: 'Цитрусовая водка, апельсиновый ликёр, клюква, лайм'
+      },
+      { 
+        title: 'Pavlova', 
+        price: 540, 
+        weight: '115 мл',
+        alcoholStrength: 'medium',
+        description: 'Джин, кордиал «Павлова»'
+      },
+      { 
+        title: 'Sicily', 
+        price: 540, 
+        weight: '205 мл',
+        alcoholStrength: 'light',
+        description: 'Джин, лимон, ревень, малина, земляника, фейхоа, яблоко'
+      },
     ],
+  },
+  {
+    id: 'krepkiy-alkogol',
+    title: 'Крепкий алкоголь',
+    subHeader: 'Порция 40 мл',
+    items: [
+        { title: 'Водка Царская', price: 170 },
+        { title: 'Водка Белуга', price: 330 },
+        { title: 'Джин Barrister', price: 230 },
+        { title: 'Виски William Lawson\'s', price: 270 },
+        { title: 'Виски Ballantines', price: 330 },
+        { title: 'Виски Jameson', price: 390 },
+        { title: 'Коньяк Арарат 5 звёзд', price: 330 },
+        { title: 'Текила Olmeca Silver', price: 390 },
+    ]
   },
   {
     id: 'pivo',
     title: 'Пиво',
     items: [
-       { title: 'Сэмпл Пиво 1', price: 350, description: 'Светлое фильтрованное' },
-       { title: 'Сэмпл Пиво 2', price: 400, description: 'Темное нефильтрованное' },
+       { title: 'Два бобра', weight: '450 мл', price: 420, description: 'Светлое фильтрованное; 4,8%' },
+       { title: 'Белый кролик', weight: '450 мл', price: 420, description: 'Светлое нефильтрованное; 4,8%' },
+       { title: 'Сорбет малина', description: 'Фруктовое; 4,5%', price: 440 },
     ]
   },
   {
     id: 'napitki',
     title: 'Напитки',
      items: [
-       { title: 'Coca-Cola', price: 200 },
-       { title: 'Вода', price: 150 },
+       { title: 'Cola', weight: '300 мл', price: 200 },
+       { title: '7up', weight: '300 мл', price: 200 },
+       { title: 'Mirinda', weight: '300 мл', price: 200 },
+       { title: 'Pepsi', weight: '300 мл', price: 200 },
     ]
   },
 ];

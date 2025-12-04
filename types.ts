@@ -12,6 +12,7 @@ export interface MenuItem {
   price?: number | string; // Fallback for simple items without variations
   weight?: string; // Fallback for simple items
   isSpicy?: boolean;
+  alcoholStrength?: 'light' | 'medium' | 'strong'; // New field for cocktails
   isHighlighted?: boolean;
   image?: string; // URL to the image of the dish
 }

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { MenuSectionData } from '../types';
 
@@ -9,26 +10,35 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ sections }) => {
   const [activeSection, setActiveSection] = useState<string>('');
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Default to the first section if nothing else is found
-      let current = sections[0]?.id || '';
-      
-      const headerOffset = 220; // Approximate header height + buffer
+    let ticking = false;
 
-      for (const section of sections) {
-        const element = document.getElementById(section.id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          // Check if the top of the section is near the header
-          if (rect.top <= headerOffset + 50) {
-            current = section.id;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Default to the first section if nothing else is found
+          let current = sections[0]?.id || '';
+          const headerOffset = 220; // Approximate header height + buffer
+
+          for (const section of sections) {
+            const element = document.getElementById(section.id);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              // Check if the top of the section is near the header
+              // Use a larger detection range for better mobile feel
+              if (rect.top <= headerOffset + 100) {
+                current = section.id;
+              }
+            }
           }
-        }
+          setActiveSection(current);
+          ticking = false;
+        });
+        ticking = true;
       }
-      setActiveSection(current);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Use passive listener for better scroll performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Check on mount
     return () => window.removeEventListener('scroll', handleScroll);
   }, [sections]);
@@ -39,8 +49,9 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ sections }) => {
     if (element) {
       const header = document.querySelector('header');
       const headerHeight = header ? header.offsetHeight : 200;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerHeight - 20;
+      // Get absolute position relative to document
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerHeight - 20;
 
       window.scrollTo({
         top: offsetPosition,
@@ -52,7 +63,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ sections }) => {
 
   return (
     <div className="w-full border-t border-white/5 bg-transparent">
-      <div className="max-w-4xl mx-auto px-4 py-3 overflow-x-auto no-scrollbar mask-gradient-right">
+      <div className="max-w-4xl mx-auto px-4 py-3 overflow-x-auto no-scrollbar mask-gradient-right transform-gpu">
         <div className="flex gap-3">
           {sections.map((section) => {
             const isActive = activeSection === section.id;
