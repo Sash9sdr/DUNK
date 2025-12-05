@@ -267,19 +267,19 @@ export const BAR_MENU: MenuSectionData[] = [
     id: 'chay',
     title: 'Чай',
     items: [
-      { title: 'Ассам', variations: [{ weight: '500 мл', price: 320 }] },
-      { title: 'Сенча', variations: [{ weight: '500 мл', price: 320 }] },
-      { title: 'Травяной сбор', variations: [{ weight: '500 мл', price: 320 }] },
+      { title: 'Ассам', variations: [{ weight: '500 мл', price: 280 }] },
+      { title: 'Сенча', variations: [{ weight: '500 мл', price: 280 }] },
+      { title: 'Травяной сбор', variations: [{ weight: '500 мл', price: 280 }] },
     ],
   },
   {
     id: 'firm-chay',
     title: 'Фирменный чай',
     items: [
-      { title: 'Облепиха, Груша, Розмарин', variations: [{ weight: '800 мл', price: 440 }] },
-      { title: 'Имбирь, Лимон, Мёд, Мята', variations: [{ weight: '800 мл', price: 440 }] },
-      { title: 'Гранатовый DUNK', variations: [{ weight: '800 мл', price: 440 }] },
-      { title: 'Малина, Клюква, Гвоздика', variations: [{ weight: '800 мл', price: 440 }] },
+      { title: 'Облепиха, Груша, Розмарин', variations: [{ weight: '800 мл', price: 390 }] },
+      { title: 'Имбирь, Лимон, Мёд, Мята', variations: [{ weight: '800 мл', price: 390 }] },
+      { title: 'Гранатовый DUNK', variations: [{ weight: '800 мл', price: 390 }] },
+      { title: 'Малина, Клюква, Гвоздика', variations: [{ weight: '800 мл', price: 390 }] },
     ],
   },
   {
