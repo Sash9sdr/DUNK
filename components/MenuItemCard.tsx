@@ -63,6 +63,43 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
     priceClasses = 'text-menu-highlight';
   }
 
+  // Helper to render description with rich formatting support
+  const renderDescription = (desc: string) => {
+    // Check if it's the Sauces list (contains bullets and newlines)
+    const isSaucesList = desc.includes('•') && desc.includes('\n');
+    
+    // Split by double newline to separate paragraphs
+    const paragraphs = desc.split('\n\n');
+
+    return paragraphs.map((paragraph, idx) => {
+      // Logic for formatting the Sauces item
+      // If it's the first paragraph and looks like a list, center it
+      const isCentered = isSaucesList && idx === 0;
+      
+      // Parse for highlighting markers (e.g. *italic*)
+      // Also specifically looking for "соус Dunk" to highlight in red as requested
+      const parts = paragraph.split(/(соус Dunk|\*[^*]+\*)/g);
+
+      return (
+        <p key={idx} className={`
+          text-sm font-normal leading-relaxed my-3 
+          ${textClasses} 
+          ${idx > 0 ? 'mt-4' : ''}
+          ${isCentered ? 'text-center font-medium tracking-wide mb-6' : ''}
+        `}>
+          {parts.map((part, i) => {
+            if (part === 'соус Dunk') {
+              return <span key={i} className="text-menu-highlight font-medium">{part}</span>;
+            } else if (part.startsWith('*') && part.endsWith('*')) {
+              return <span key={i} className="italic">{part.slice(1, -1)}</span>;
+            }
+            return part;
+          })}
+        </p>
+      );
+    });
+  };
+
   return (
     <div className={`
       relative group flex flex-col h-full rounded-2xl transition-all duration-300 overflow-hidden isolate
@@ -116,9 +153,9 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
 
         {/* Description */}
         {item.description && (
-          <p className={`text-sm font-normal leading-relaxed my-3 ${textClasses}`}>
-            {item.description}
-          </p>
+          <div className="flex-grow">
+            {renderDescription(item.description)}
+          </div>
         )}
 
         {/* Interactive Variation Selector (Mobile Friendly) */}

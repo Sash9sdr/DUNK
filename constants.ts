@@ -131,49 +131,51 @@ export const KITCHEN_MENU: MenuSectionData[] = [
   {
     id: 'rolly',
     title: 'Роллы',
+    subHeader: 'Порция 4 шт',
     items: [
       {
         title: 'Филадельфия',
         image: 'https://images.unsplash.com/photo-1617196019294-dc44dfacb251?q=80&w=800&auto=format&fit=crop',
         description: 'Лосось, сливочный сыр, авокадо.',
-        variations: [{ weight: '4 шт', price: 510 }],
+        price: 510,
       },
       {
         title: 'Филадельфия унаги',
         image: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?q=80&w=800&auto=format&fit=crop',
         description: 'Угорь, сливочный сыр, соус унаги, кунжут.',
-        variations: [{ weight: '4 шт', price: 550 }],
+        price: 550,
       },
       {
         title: 'Калифорния',
         image: 'https://images.unsplash.com/photo-1605493666455-83569805560b?q=80&w=800&auto=format&fit=crop',
         description: 'Лосось, креветка, авокадо, икра.',
-        variations: [{ weight: '4 шт', price: 510 }],
+        price: 510,
       },
       {
         title: 'Ролл запечённый',
         isHighlighted: true,
         image: 'https://images.unsplash.com/photo-1635548166842-bf67bacbefaa?q=80&w=800&auto=format&fit=crop',
         description: 'Краб‑сурими, сливочный сыр, икра, креветка, лосось, соус унаги; запекается под фирменной «шапкой»',
-        variations: [{ weight: '4 шт', price: 570 }],
+        price: 570,
       },
       {
         title: 'Ролл опалённый',
         isHighlighted: true,
         description: 'Краб‑сурими, сливочный сыр, креветка, тунец, соус унаги, соус Dunk; поверхность ролла аккуратно опаляется.',
-        variations: [{ weight: '4 шт', price: 550 }],
+        price: 550,
       },
       {
         title: 'Ролл Dunk',
         isHighlighted: true,
         description: 'Сливочный сыр, икра, креветка, лосось, тунец, авокадо, лук кранч, крем бальзамический, соус унаги; обжаривается во фритюре.',
-        variations: [{ weight: '4 шт', price: 600 }],
+        price: 600,
       },
     ],
   },
   {
     id: 'rolly-small',
-    title: 'Малые роллы (8 шт.)',
+    title: 'Малые роллы',
+    subHeader: 'Порция 8 шт',
     items: [
       { title: 'С лососем', price: 300 },
       { title: 'С угрём', price: 340 },
@@ -194,7 +196,7 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       },
       { 
         title: 'Лепёшка с индейкой', 
-        description: 'Лепёшка, индейка, моцарелла, черри, микс салата, лук красный, соус карри ананас',
+        description: 'Лепёшка, индейка, моцарелла, черри, микс салатов, лук красный, соус карри ананас',
         variations: [{ weight: '230 г', price: 320 }] 
       },
       { title: 'Картофельные дольки', variations: [{ weight: '200 г', price: 320 }] },
@@ -222,7 +224,7 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       {
         title: 'Ассорти соусов',
         variations: [{ weight: '30 г', price: 80 }],
-        description: 'Кетчуп • Сальса • Спайси • Унаги • Барбекю • Цезарь • Dunk • Сырный • Чесночный \n\n *Фирменный соус Dunk — остро‑сливочный на основе майонеза и тайского чили.*',
+        description: 'Кетчуп • Сальса • Спайси • Унаги • Барбекю • Цезарь • Dunk • Сырный • Чесночный\n\n*Фирменный соус Dunk — остро‑сливочный на основе майонеза и тайского чили.*',
       },
     ],
   },
@@ -254,7 +256,7 @@ export const BAR_MENU: MenuSectionData[] = [
   {
     id: 'kofe',
     title: 'Кофе',
-    note: 'По Вашему желанию можем добавить 10мл сиропа из нашего ассортимента. \nИспользуется классическое молоко, альтернативных вариантов не имеется.',
+    note: 'По Вашему желанию можем добавить 10мл сиропа из нашего ассортимента.',
     items: [
       { title: 'Эспрессо', variations: [{ weight: '30 мл', price: 180 }] },
       { title: 'Американо', variations: [{ weight: '180 мл', price: 180 }] },
@@ -278,8 +280,7 @@ export const BAR_MENU: MenuSectionData[] = [
     items: [
       { title: 'Облепиха, Груша, Розмарин', variations: [{ weight: '800 мл', price: 390 }] },
       { title: 'Имбирь, Лимон, Мёд, Мята', variations: [{ weight: '800 мл', price: 390 }] },
-      { title: 'Гранатовый DUNK', variations: [{ weight: '800 мл', price: 390 }] },
-      { title: 'Малина, Клюква, Гвоздика', variations: [{ weight: '800 мл', price: 390 }] },
+      { title: 'Малина, Лемонграсс, Тимьян', variations: [{ weight: '800 мл', price: 390 }] },
     ],
   },
   {
@@ -298,12 +299,11 @@ export const BAR_MENU: MenuSectionData[] = [
     id: 'limonady',
     title: 'Лимонады',
     items: [
-      { title: 'Манго - Жасмин', variations: [{ weight: '470 мл', price: 340 }] },
-      { title: 'Ежевика - Гранат', variations: [{ weight: '470 мл', price: 340 }] },
-      { title: 'Груша - Алыча', variations: [{ weight: '470 мл', price: 340 }] },
-      { title: 'Малина - Базилик', variations: [{ weight: '470 мл', price: 340 }] },
-      { title: 'Лаванда - Ирга - Чёрная Смородина', variations: [{ weight: '470 мл', price: 340 }] },
-      { title: 'Личи - Мандарин', variations: [{ weight: '470 мл', price: 340 }] },
+      { title: 'Манго - Жасмин', variations: [{ weight: '470 мл', price: 380 }] },
+      { title: 'Ежевика - Гранат', variations: [{ weight: '470 мл', price: 380 }] },
+      { title: 'Груша - Алыча', variations: [{ weight: '470 мл', price: 380 }] },
+      { title: 'Малина - Базилик', variations: [{ weight: '470 мл', price: 380 }] },
+      { title: 'Лаванда - Ирга - Чёрная Смородина', variations: [{ weight: '470 мл', price: 380 }] },
     ],
   },
   {
@@ -399,7 +399,7 @@ export const BAR_MENU: MenuSectionData[] = [
     items: [
        { title: 'Два бобра', weight: '450 мл', price: 420, description: 'Светлое фильтрованное; 4,8%' },
        { title: 'Белый кролик', weight: '450 мл', price: 420, description: 'Светлое нефильтрованное; 4,8%' },
-       { title: 'Сорбет малина', description: 'Фруктовое; 4,5%', price: 440 },
+       { title: 'Сорбет малина', weight: '450 мл', description: 'Фруктовое; 4,5%', price: 440 },
     ]
   },
   {
