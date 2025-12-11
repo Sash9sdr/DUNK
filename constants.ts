@@ -148,7 +148,7 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       {
         title: 'Калифорния',
         image: 'https://images.unsplash.com/photo-1605493666455-83569805560b?q=80&w=800&auto=format&fit=crop',
-        description: 'Лосось, креветка, авокадо, икра.',
+        description: 'Лосось, креветка, сливочный сыр, авокадо, икра.',
         price: 510,
       },
       {
@@ -269,9 +269,9 @@ export const BAR_MENU: MenuSectionData[] = [
     id: 'chay',
     title: 'Чай',
     items: [
-      { title: 'Ассам', variations: [{ weight: '500 мл', price: 280 }] },
-      { title: 'Сенча', variations: [{ weight: '500 мл', price: 280 }] },
-      { title: 'Травяной сбор', variations: [{ weight: '500 мл', price: 280 }] },
+      { title: 'Ассам', variations: [{ weight: '500 мл', price: 320 }] },
+      { title: 'Сенча', variations: [{ weight: '500 мл', price: 320 }] },
+      { title: 'Травяной сбор', variations: [{ weight: '500 мл', price: 320 }] },
     ],
   },
   {
@@ -286,7 +286,7 @@ export const BAR_MENU: MenuSectionData[] = [
   {
     id: 'kitay-chay',
     title: 'Китайский чай',
-    note: 'Проведём для Вас чайную церемонию в которую входит: чабань, гайвань, чахай, чайный дух, пиалы, и расскажем о самом чае и о его эффектах.',
+    note: 'Проведём для Вас чайную церемонию в которую входит: чабань, гайвань, чахай, чайный дух, пиалы, исинский чайник и расскажем о самом чае и о его эффектах.',
     items: [
       { title: 'Шу Пуэр', price: 690 },
       { title: 'Шен Пуэр', price: 690 },

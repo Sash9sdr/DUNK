@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { KITCHEN_MENU, BAR_MENU } from './constants';
 import { MenuType } from './types';
@@ -6,6 +7,7 @@ import { MenuToggle } from './components/MenuToggle';
 import { CategoryNav } from './components/CategoryNav';
 import { MenuSection } from './components/MenuSection';
 import { LoadingScreen } from './components/LoadingScreen';
+import { ChristmasDecor } from './components/ChristmasDecor';
 import { motion, AnimatePresence, useMotionValue, animate } from 'framer-motion';
 
 function App() {
@@ -70,8 +72,11 @@ function App() {
         )}
       </AnimatePresence>
 
-      <div className="min-h-screen relative flex flex-col bg-[#050505] overflow-x-hidden selection:bg-menu-highlight selection:text-white">
+      <div className="min-h-[100dvh] relative flex flex-col bg-[#050505] overflow-x-hidden selection:bg-menu-highlight selection:text-white">
         
+        {/* --- SEASONAL DECOR --- */}
+        {!isLoading && <ChristmasDecor />}
+
         {/* --- LIQUID 3D BACKGROUND --- */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
            {/* Noise Texture for Premium Feel */}

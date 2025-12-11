@@ -63,7 +63,11 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ sections }) => {
 
   return (
     <div className="w-full border-t border-white/5 bg-transparent">
-      <div className="max-w-4xl mx-auto pl-4 pr-12 py-3 overflow-x-auto no-scrollbar mask-gradient-right transform-gpu">
+      {/* 
+        Increased padding-right (pr-24) to ensure the last item is clearly visible 
+        and not hidden by the screen edge or gradient mask. 
+      */}
+      <div className="max-w-4xl mx-auto pl-4 pr-24 py-3 overflow-x-auto no-scrollbar mask-gradient-right transform-gpu">
         <div className="flex gap-3">
           {sections.map((section) => {
             const isActive = activeSection === section.id;
