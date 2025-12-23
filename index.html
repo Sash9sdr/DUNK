@@ -3,13 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>DUNK MENU</title>
+    
+    <!-- Preconnect to critical domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://s3.twcstorage.ru">
+    <link rel="dns-prefetch" href="https://s3.twcstorage.ru">
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&family=Inter:wght@400;600&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
     <link href="/index.css" rel="stylesheet">
     
-    <!-- Tailwind CSS via CDN for guaranteed rendering in all environments -->
+    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -39,15 +49,17 @@
       }
     </script>
     <style>
-      /* Critical CSS for initial loader background to prevent white flash */
-      body { background-color: #050505; margin: 0; }
+      /* Prevent initial white flash with dark theme */
+      html, body { background-color: #050505; color: #ededed; }
       #root:empty::before {
         content: "";
         position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
+        inset: 0;
         background-color: #050505;
         z-index: 9999;
       }
+      /* Hardware acceleration hint for smooth scrolling */
+      * { -webkit-overflow-scrolling: touch; }
     </style>
 <script type="importmap">
 {
