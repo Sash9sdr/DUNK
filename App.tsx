@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { KITCHEN_MENU, BAR_MENU, SPECIAL_MENU } from './constants';
 import { MenuType } from './types';
@@ -24,8 +25,6 @@ function App() {
   const themeProgress = useMotionValue(0);
 
   useEffect(() => {
-    // Slashed artificial delay to 600ms. It's fast enough to feel responsive 
-    // but keeps the brand intro logic.
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 600);
@@ -83,40 +82,38 @@ function App() {
         
         {!isLoading && <ChristmasDecor />}
 
-        {/* Optimized Ambient Background */}
+        {/* Optimized Ambient Background - Reduced Blur and complexity */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden transform-gpu">
-           <div className="absolute inset-0 opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay will-change-transform"></div>
+           <div className="absolute inset-0 opacity-[0.015] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
 
            <motion.div 
               initial={false}
               animate={{ 
-                scale: [1, 1.05, 1],
-                opacity: [0.1, 0.15, 0.1],
+                scale: [1, 1.02, 1],
+                opacity: [0.08, 0.12, 0.08],
                 background: activeMenu === 'kitchen' 
-                  ? 'radial-gradient(circle, rgba(214,64,69,0.1) 0%, rgba(0,0,0,0) 70%)'
+                  ? 'radial-gradient(circle, rgba(214,64,69,0.08) 0%, rgba(0,0,0,0) 70%)'
                   : activeMenu === 'bar'
-                    ? 'radial-gradient(circle, rgba(51,102,255,0.1) 0%, rgba(0,0,0,0) 70%)'
-                    : 'radial-gradient(circle, rgba(34,197,94,0.1) 0%, rgba(0,0,0,0) 70%)'
+                    ? 'radial-gradient(circle, rgba(51,102,255,0.08) 0%, rgba(0,0,0,0) 70%)'
+                    : 'radial-gradient(circle, rgba(34,197,94,0.08) 0%, rgba(0,0,0,0) 70%)'
               }}
-              transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-              className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[100vw] h-[80vh] blur-[100px] will-change-transform transform-gpu" 
+              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[100vw] h-[60vh] blur-[60px] transform-gpu" 
            />
            
            <motion.div
               initial={false}
               animate={{
-                x: [-10, 10, -10],
-                y: [0, 30, 0],
-                opacity: [0.1, 0.15, 0.1],
-                backgroundColor: activeMenu === 'kitchen' ? '#400000' : activeMenu === 'bar' ? '#001033' : '#043629'
+                opacity: [0.08, 0.12, 0.08],
+                backgroundColor: activeMenu === 'kitchen' ? '#300000' : activeMenu === 'bar' ? '#000820' : '#02241b'
               }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute top-[5%] -left-[15%] w-[70vw] h-[70vw] rounded-full blur-[120px] will-change-transform transform-gpu"
+              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              className="absolute top-[10%] -left-[15%] w-[60vw] h-[60vw] rounded-full blur-[80px] transform-gpu"
            />
         </div>
 
         <header className="fixed top-0 left-0 right-0 z-50 transform-gpu">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-xl border-b border-white/5 shadow-2xl"></div>
+          <div className="absolute inset-0 bg-black/85 backdrop-blur-lg border-b border-white/5 shadow-2xl"></div>
           
           <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center pt-2">
             <Logo />
@@ -146,14 +143,8 @@ function App() {
 
         <footer className="relative z-10 py-16 border-t border-white/5 bg-black text-center">
           <div className="flex flex-col items-center justify-center gap-6">
-            <div className="w-16 h-px bg-menu-highlight/20"></div>
-            <img 
-              src="https://s3.twcstorage.ru/85179b75-53e6e7d0-fc40-45c5-af31-5645db263308/logo%20(2).png" 
-              alt="DUNK" 
-              className="h-8 w-auto opacity-20 grayscale" 
-              loading="lazy"
-            />
-            <p className="text-[9px] text-menu-muted/40 uppercase tracking-[0.4em]">
+            <div className="w-16 h-px bg-menu-highlight/10"></div>
+            <p className="text-[9px] text-menu-muted/30 uppercase tracking-[0.4em] font-bold">
               © 2025 DUNK Digital Menu
             </p>
           </div>
