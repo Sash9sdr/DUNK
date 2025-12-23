@@ -14,27 +14,27 @@ const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.01, // Almost instant stagger for bulk appearance
-      delayChildren: 0
+      staggerChildren: 0.1,
+      delayChildren: 0.1
     }
   }
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 10 }, // Reduced movement distance
+  hidden: { opacity: 0, y: 20 },
   visible: { 
     opacity: 1, 
     y: 0,
     transition: {
-      duration: 0.25, // Snappy, fast transition
+      duration: 0.5,
       ease: "easeOut"
     }
   }
 };
 
 export const MenuSection: React.FC<MenuSectionProps> = ({ section, index }) => {
-  // Check if this is the Chinese Tea section to apply special styling
   const isChineseTheme = section.id === 'kitay-chay';
+  const isSpecialSection = section.id === 'special-cocktails';
 
   return (
     <motion.section 
@@ -42,12 +42,11 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ section, index }) => {
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "400px" }}
-      className={`relative ${isChineseTheme ? 'py-6 px-2 rounded-2xl bg-gradient-to-b from-[#1c0808] to-transparent border border-red-900/30' : ''}`}
+      viewport={{ once: true, margin: "-100px" }}
+      className={`relative ${isChineseTheme ? 'py-6 px-2 rounded-2xl bg-gradient-to-b from-[#1c0808] to-transparent border border-red-900/30' : ''} ${isSpecialSection ? 'mb-20' : ''}`}
     >
-      <div className="mb-6 flex items-center gap-4 pt-4">
+      <div className="mb-8 flex items-center gap-4 pt-4">
         {isChineseTheme ? (
-          // Special Chinese Header
           <>
             <div className="h-px flex-grow bg-gradient-to-r from-transparent to-amber-700"></div>
             <h2 className="text-2xl font-serif font-medium text-amber-500 tracking-widest uppercase px-4 border-x border-amber-900/50">
@@ -56,22 +55,21 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ section, index }) => {
             <div className="h-px flex-grow bg-gradient-to-l from-transparent to-amber-700"></div>
           </>
         ) : (
-          // Standard Header
           <>
-            <h2 className="text-2xl font-display font-extrabold text-white tracking-tight uppercase">
+            <h2 className={`text-2xl font-display font-extrabold tracking-tight uppercase ${isSpecialSection ? 'text-green-500 animate-special-blink' : 'text-white'}`}>
               {section.title}
             </h2>
-            <div className="h-px flex-grow bg-gradient-to-r from-menu-highlight/50 to-transparent"></div>
+            <div className={`h-px flex-grow bg-gradient-to-r from-current to-transparent opacity-30 ${isSpecialSection ? 'text-green-500' : 'text-menu-highlight'}`}></div>
           </>
         )}
       </div>
 
       {section.note && (
         <div className={`
-          mb-6 p-4 rounded-lg text-sm leading-relaxed italic border-l-2
+          mb-8 p-4 rounded-lg text-sm leading-relaxed italic border-l-2
           ${isChineseTheme 
             ? 'bg-[#2a0e0e] border-amber-700 text-amber-100/70 font-serif' 
-            : 'bg-menu-card/50 border-menu-highlight text-menu-muted'
+            : 'bg-menu-card/50 border-white/10 text-menu-muted'
           }
         `}>
           {section.note.split('\n').map((line, i) => (
@@ -86,7 +84,11 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ section, index }) => {
         </h3>
       )}
 
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Special Layout Logic */}
+      <motion.div 
+        layout 
+        className={`grid gap-8 ${isSpecialSection ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}
+      >
         {section.items.map((item, idx) => (
           <motion.div layout key={`${section.id}-${idx}`} variants={itemVariants}>
             <MenuItemCard item={item} specialTheme={isChineseTheme ? 'chinese' : undefined} />

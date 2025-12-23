@@ -17,6 +17,16 @@ export interface MenuItem {
   image?: string; // URL to the image of the dish
 }
 
+// Added CartItem interface to resolve import errors in CartContext.tsx
+export interface CartItem {
+  id: string;
+  title: string;
+  price: number;
+  quantity: number;
+  variationName?: string;
+  weight?: string;
+}
+
 export interface MenuSectionData {
   id: string;
   title: string;
@@ -25,4 +35,4 @@ export interface MenuSectionData {
   subHeader?: string; // For things like "Малые роллы (8 шт.)"
 }
 
-export type MenuType = 'kitchen' | 'bar';
+export type MenuType = 'kitchen' | 'bar' | 'special';

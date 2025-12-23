@@ -68,3 +68,19 @@ html {
 .animate-christmas-flash {
   animation: christmas-flash 3s infinite ease-in-out;
 }
+
+/* New Special Blinking Animation */
+@keyframes special-blink {
+  0%, 100% { 
+    color: rgba(255, 255, 255, 0.4);
+    text-shadow: none;
+  }
+  50% { 
+    color: #22c55e;
+    text-shadow: 0 0 8px rgba(34, 197, 94, 0.8), 0 0 12px rgba(34, 197, 94, 0.4);
+  }
+}
+
+.animate-special-blink {
+  animation: special-blink 1.5s infinite ease-in-out;
+}

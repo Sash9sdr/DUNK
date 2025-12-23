@@ -1,5 +1,37 @@
-
 import { MenuSectionData } from './types';
+
+export const SPECIAL_MENU: MenuSectionData[] = [
+  {
+    id: 'special-cocktails',
+    title: 'Cocktails',
+    items: [
+      {
+        title: 'Grinch Gin Fizz',
+        isHighlighted: true,
+        image: 'https://s3.twcstorage.ru/85179b75-53e6e7d0-fc40-45c5-af31-5645db263308/%D0%9C%D0%B5%D0%BD%D1%8E/IMG_2501.PNG',
+        description: 'Освежающий зимний фреш: джин, лимон и дыня в чистом, изысканном стиле.',
+        price: 480,
+        alcoholStrength: 'medium'
+      },
+      {
+        title: 'Mandarin',
+        isHighlighted: true,
+        image: 'https://s3.twcstorage.ru/85179b75-53e6e7d0-fc40-45c5-af31-5645db263308/%D0%9C%D0%B5%D0%BD%D1%8E/IMG_2433.PNG',
+        description: 'Яркий мандариново-ванильный коктейль на текиле: сочный цитрус, лайм и мягкая сладость.',
+        price: 480,
+        alcoholStrength: 'medium'
+      },
+      {
+        title: 'Milk Punch',
+        isHighlighted: true,
+        image: 'https://s3.twcstorage.ru/85179b75-53e6e7d0-fc40-45c5-af31-5645db263308/%D0%9C%D0%B5%D0%BD%D1%8E/IMG_2423.PNG',
+        description: 'Нежный молочный пунш с ромом: смородина и ананас + пряный чай.',
+        price: 480,
+        alcoholStrength: 'medium'
+      }
+    ]
+  }
+];
 
 export const KITCHEN_MENU: MenuSectionData[] = [
   {
@@ -8,8 +40,7 @@ export const KITCHEN_MENU: MenuSectionData[] = [
     items: [
       {
         title: 'Цезарь',
-        image: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?q=80&w=800&auto=format&fit=crop',
-        description: 'Микс салатов, черри, пармезан, сухари, соус «Цезарь».',
+        description: 'Микс салатов, черри, пармезан, соус «Цезарь».',
         variations: [
           { name: 'с индейкой', weight: '250 г', price: 410 },
           { name: 'с креветкой', weight: '220 г', price: 530 },
@@ -17,7 +48,6 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       },
       {
         title: 'Креветка с песто',
-        image: 'https://images.unsplash.com/photo-1606850246029-dd00bd5d0e1a?q=80&w=800&auto=format&fit=crop',
         description: 'Микс салатов, креветки, черри, пармезан, соус песто.',
         variations: [{ weight: '200 г', price: 480 }],
       },
@@ -40,7 +70,6 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       {
         title: 'Том Ям',
         isSpicy: true,
-        image: 'https://images.unsplash.com/photo-1548943487-a2e4e43b485c?q=80&w=800&auto=format&fit=crop',
         description: 'Тайский острый бульон, рис, черри, шампиньоны, кокосовое молоко и сливки, паста том ям, лайм, кунжут, кинза.',
         variations: [
           { name: 'с индейкой', weight: '500 г', price: 580 },
@@ -49,7 +78,6 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       },
       {
         title: 'Том Кха',
-        image: 'https://images.unsplash.com/photo-1627926131464-927b1349f76a?q=80&w=800&auto=format&fit=crop',
         description: 'Сливочный тайский суп с рисом, черри, шампиньонами, кокосовым молоком, сливками, пастой том кха, лаймом, кунжутом и кинзой.',
         variations: [
           { name: 'с индейкой', weight: '500 г', price: 580 },
@@ -74,7 +102,6 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       },
       {
         title: 'Пад тай',
-        image: 'https://images.unsplash.com/photo-1559314809-0d155014e29e?q=80&w=800&auto=format&fit=crop',
         description: 'Овощи, яйцо, фирменный соус пад тай, кунжут, зелёный лук.',
         variations: [
           { name: 'овощной', weight: '320 г', price: 390 },
@@ -85,7 +112,6 @@ export const KITCHEN_MENU: MenuSectionData[] = [
       {
         title: 'Зелёный карри',
         isSpicy: true,
-        image: 'https://images.unsplash.com/photo-1626804475297-411d8c6b7eb6?q=80&w=800&auto=format&fit=crop',
         description: 'Овощи, яйцо, соус зелёный карри, кунжут, зелёный лук.',
         variations: [
           { name: 'овощной', weight: '320 г', price: 390 },
@@ -101,7 +127,6 @@ export const KITCHEN_MENU: MenuSectionData[] = [
     items: [
       {
         title: 'Жареный рис',
-        image: 'https://images.unsplash.com/photo-1603133872878-684f10842740?q=80&w=800&auto=format&fit=crop',
         description: 'Овощи, яйцо, соевый соус, кунжутное масло, зелёный лук.',
         variations: [
           { name: 'с овощами', weight: '280 г', price: 390 },
@@ -135,26 +160,22 @@ export const KITCHEN_MENU: MenuSectionData[] = [
     items: [
       {
         title: 'Филадельфия',
-        image: 'https://images.unsplash.com/photo-1617196019294-dc44dfacb251?q=80&w=800&auto=format&fit=crop',
         description: 'Лосось, сливочный сыр, авокадо.',
         price: 510,
       },
       {
         title: 'Филадельфия унаги',
-        image: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?q=80&w=800&auto=format&fit=crop',
         description: 'Угорь, сливочный сыр, соус унаги, кунжут.',
         price: 550,
       },
       {
         title: 'Калифорния',
-        image: 'https://images.unsplash.com/photo-1605493666455-83569805560b?q=80&w=800&auto=format&fit=crop',
         description: 'Лосось, креветка, сливочный сыр, авокадо, икра.',
         price: 510,
       },
       {
         title: 'Ролл запечённый',
         isHighlighted: true,
-        image: 'https://images.unsplash.com/photo-1635548166842-bf67bacbefaa?q=80&w=800&auto=format&fit=crop',
         description: 'Краб‑сурими, сливочный сыр, икра, креветка, лосось, соус унаги; запекается под фирменной «шапкой»',
         price: 570,
       },
@@ -234,18 +255,15 @@ export const KITCHEN_MENU: MenuSectionData[] = [
     items: [
       { 
         title: 'Чизкейк карамель‑арахис', 
-        image: 'https://images.unsplash.com/photo-1508737027454-e6454ef45afd?q=80&w=800&auto=format&fit=crop',
         variations: [{ weight: '100 г', price: 250 }] 
       },
       { 
         title: 'Красный бархат', 
-        image: 'https://images.unsplash.com/photo-1586788224331-947f68671cf1?q=80&w=800&auto=format&fit=crop',
         variations: [{ weight: '100 г', price: 250 }] 
       },
       {
         title: 'Десерт DUNK',
         isHighlighted: true,
-        image: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=800&auto=format&fit=crop',
         variations: [{ weight: '110 г', price: 300 }],
       },
     ],
@@ -316,16 +334,14 @@ export const BAR_MENU: MenuSectionData[] = [
         price: 600,
         weight: '285 мл',
         alcoholStrength: 'light',
-        description: 'Апероль, игристое, содовая',
-        image: 'https://images.unsplash.com/photo-1560512823-8db03e1b0949?q=80&w=800&auto=format&fit=crop'
+        description: 'Апероль, игристое, содовая'
       },
       { 
         title: 'Negroni', 
         price: 540,
         weight: '105 мл',
         alcoholStrength: 'medium',
-        description: 'Джин, биттер, вермут',
-        image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=800&auto=format&fit=crop'
+        description: 'Джин, биттер, вермут'
       },
       { 
         title: 'Gin Peach', 
@@ -344,7 +360,6 @@ export const BAR_MENU: MenuSectionData[] = [
       { 
         title: 'Gin Fizz', 
         price: 480, 
-        weight: '140 мл',
         alcoholStrength: 'medium',
         description: 'Джин, лимон, содовая'
       },

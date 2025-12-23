@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { KITCHEN_MENU, BAR_MENU } from './constants';
+import { KITCHEN_MENU, BAR_MENU, SPECIAL_MENU } from './constants';
 import { MenuType } from './types';
 import { Logo } from './components/Logo';
 import { MenuToggle } from './components/MenuToggle';
@@ -13,36 +13,46 @@ import { motion, AnimatePresence, useMotionValue, animate } from 'framer-motion'
 function App() {
   const [activeMenu, setActiveMenu] = useState<MenuType>('kitchen');
   const [isLoading, setIsLoading] = useState(true);
-  const currentMenu = activeMenu === 'kitchen' ? KITCHEN_MENU : BAR_MENU;
+  
+  const currentMenu = activeMenu === 'kitchen' 
+    ? KITCHEN_MENU 
+    : activeMenu === 'bar' 
+      ? BAR_MENU 
+      : SPECIAL_MENU;
 
-  // Use a motion value to interpolate between 0 (Kitchen/Red) and 1 (Bar/Blue)
+  // Use a motion value to interpolate themes
   const themeProgress = useMotionValue(0);
 
   useEffect(() => {
-    // Simulate loading time for assets and initialization
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2800); // 2.8 seconds loading screen
-
+    }, 2800);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    // Target: 0 for Kitchen, 1 for Bar
-    const target = activeMenu === 'bar' ? 1 : 0;
+    // 0: Kitchen (Red), 1: Bar (Blue), 2: Special (Green)
+    const target = activeMenu === 'kitchen' ? 0 : activeMenu === 'bar' ? 1 : 2;
     
     const controls = animate(themeProgress, target, {
       duration: 0.8,
-      ease: [0.32, 0.72, 0, 1], // Custom bezier for "expensive" smooth feel
+      ease: [0.32, 0.72, 0, 1],
       onUpdate: (latest) => {
-        // Kitchen Red: 214, 64, 69 (#D64045)
-        // Bar Blue: 51, 102, 255 (#3366FF) - A nice "Royal/Electric" blue
+        let r, g, b;
         
-        const r = Math.round(214 + (51 - 214) * latest);
-        const g = Math.round(64 + (102 - 64) * latest);
-        const b = Math.round(69 + (255 - 69) * latest);
+        if (latest <= 1) {
+          // Transition Red -> Blue
+          r = Math.round(214 + (51 - 214) * latest);
+          g = Math.round(64 + (102 - 64) * latest);
+          b = Math.round(69 + (255 - 69) * latest);
+        } else {
+          // Transition Blue -> Green (latest 1 to 2)
+          const p = latest - 1;
+          r = Math.round(51 + (34 - 51) * p);
+          g = Math.round(102 + (197 - 102) * p);
+          b = Math.round(255 + (94 - 255) * p);
+        }
         
-        // Update CSS variable directly on root
         document.documentElement.style.setProperty('--highlight-rgb', `${r} ${g} ${b}`);
       }
     });
@@ -74,31 +84,26 @@ function App() {
 
       <div className="min-h-[100dvh] relative flex flex-col bg-[#050505] overflow-x-hidden selection:bg-menu-highlight selection:text-white">
         
-        {/* --- SEASONAL DECOR --- */}
         {!isLoading && <ChristmasDecor />}
 
-        {/* --- LIQUID 3D BACKGROUND --- */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-           {/* Noise Texture for Premium Feel */}
            <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-100 contrast-150 mix-blend-overlay"></div>
 
-           {/* Center Top Glow (General Ambience) */}
-           {/* Added will-change-transform for mobile performance */}
            <motion.div 
               initial={false}
               animate={{ 
                 scale: [1, 1.1, 1],
                 opacity: [0.1, 0.2, 0.1],
-                // Animate color based on active menu
                 background: activeMenu === 'kitchen' 
-                  ? 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0) 70%)'
-                  : 'radial-gradient(circle, rgba(51,102,255,0.1) 0%, rgba(0,0,0,0) 70%)'
+                  ? 'radial-gradient(circle, rgba(214,64,69,0.1) 0%, rgba(0,0,0,0) 70%)'
+                  : activeMenu === 'bar'
+                    ? 'radial-gradient(circle, rgba(51,102,255,0.1) 0%, rgba(0,0,0,0) 70%)'
+                    : 'radial-gradient(circle, rgba(34,197,94,0.1) 0%, rgba(0,0,0,0) 70%)'
               }}
               transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
               className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[100vw] h-[800px] blur-[80px] will-change-transform" 
            />
            
-           {/* Deep Ambient Blob (Left) */}
            <motion.div
               initial={false}
               animate={{
@@ -106,30 +111,25 @@ function App() {
                 y: [0, 50, 0],
                 opacity: [0.15, 0.25, 0.15],
                 scale: [1, 1.2, 1],
-                // Red -> Deep Blue
-                backgroundColor: activeMenu === 'kitchen' ? '#500000' : '#001a4d' 
+                backgroundColor: activeMenu === 'kitchen' ? '#500000' : activeMenu === 'bar' ? '#001a4d' : '#064e3b'
               }}
               transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
               className="absolute top-[10%] -left-[10%] w-[800px] h-[800px] rounded-full blur-[80px] will-change-transform"
            />
 
-           {/* Bright Accent Blob (Right/Bottom) */}
            <motion.div
               initial={false}
               animate={{
                 x: [0, -40, 0],
                 y: [0, -30, 0],
                 opacity: [0.08, 0.15, 0.08],
-                // This one uses the CSS variable, so it animates automatically via the useEffect hook
               }}
               transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
               className="absolute bottom-[20%] -right-[10%] w-[600px] h-[600px] bg-menu-highlight/30 rounded-full blur-[100px] will-change-transform"
            />
         </div>
 
-        {/* --- 3D GLASS FIXED HEADER --- */}
         <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-          {/* Glass Container - Simplified for mobile performance (less blur radius) */}
           <div className="absolute inset-0 bg-[#0a0a0a]/90 backdrop-blur-lg border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.5)] supports-[backdrop-filter]:bg-black/60"></div>
           
           <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center pt-2">
@@ -141,7 +141,6 @@ function App() {
           </div>
         </header>
 
-        {/* --- MAIN CONTENT --- */}
         <main className="flex-grow relative z-10 max-w-4xl mx-auto w-full px-4 pt-[220px] pb-24">
           <AnimatePresence mode="wait">
             <motion.div
@@ -159,7 +158,6 @@ function App() {
           </AnimatePresence>
         </main>
 
-        {/* --- FOOTER --- */}
         <footer className="relative z-10 py-16 border-t border-white/5 bg-gradient-to-b from-transparent to-black/80 backdrop-blur-sm text-center">
           <div className="flex flex-col items-center justify-center gap-6">
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-menu-highlight/50 to-transparent"></div>
