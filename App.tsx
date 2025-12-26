@@ -8,11 +8,13 @@ import { CategoryNav } from './components/CategoryNav';
 import { MenuSection } from './components/MenuSection';
 import { LoadingScreen } from './components/LoadingScreen';
 import { ChristmasDecor } from './components/ChristmasDecor';
+import { BeerGame } from './components/BeerGame';
 import { motion, AnimatePresence, useMotionValue, animate } from 'framer-motion';
 
 function App() {
   const [activeMenu, setActiveMenu] = useState<MenuType>('kitchen');
   const [isLoading, setIsLoading] = useState(true);
+  const [isGameOpen, setIsGameOpen] = useState(false);
   
   const currentMenu = useMemo(() => {
     return activeMenu === 'kitchen' 
@@ -78,6 +80,20 @@ function App() {
         )}
       </AnimatePresence>
 
+      {/* Game Overlay */}
+      <AnimatePresence>
+        {isGameOpen && (
+          <motion.div
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             exit={{ opacity: 0 }}
+             className="fixed inset-0 z-[200]"
+          >
+             <BeerGame isOpen={isGameOpen} onClose={() => setIsGameOpen(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="min-h-[100dvh] relative flex flex-col bg-[#050505] overflow-x-hidden selection:bg-menu-highlight selection:text-white transform-gpu">
         
         {!isLoading && <ChristmasDecor />}
@@ -116,7 +132,20 @@ function App() {
           <div className="absolute inset-0 bg-black/85 backdrop-blur-lg border-b border-white/5 shadow-2xl"></div>
           
           <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center pt-2">
-            <Logo />
+            <div className="w-full flex items-center justify-center relative">
+               <Logo />
+               {/* Game Launch Button */}
+               <button 
+                  onClick={() => setIsGameOpen(true)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-500 hover:text-amber-300 transition-colors p-2 animate-pulse"
+                  aria-label="Play Casino"
+               >
+                  <div className="border-2 border-current rounded-md px-1 font-black text-xs bg-black/50 backdrop-blur-sm">
+                      777
+                  </div>
+               </button>
+            </div>
+            
             <div className="w-full px-4 mb-3">
                <MenuToggle activeMenu={activeMenu} onToggle={handleToggle} />
             </div>
