@@ -1,3 +1,4 @@
+
 import { MenuSectionData } from './types';
 
 export const SPECIAL_MENU: MenuSectionData[] = [
@@ -414,6 +415,10 @@ export const BAR_MENU: MenuSectionData[] = [
     items: [
        { title: 'Два бобра', weight: '450 мл', price: 420, description: 'Светлое фильтрованное; 4,8%' },
        { title: 'Белый кролик', weight: '450 мл', price: 420, description: 'Светлое нефильтрованное; 4,8%' },
+       { title: 'Blanche de croix', weight: '450 мл', price: 390, description: 'Светлое нефильтрованное' },
+       { title: 'Флюгер', weight: '330 мл', price: 290, description: 'Светлое фильтрованное' },
+       { title: 'Люгер', weight: '450 мл', price: 390, description: 'Светлое нефильтрованное' },
+       { title: 'Arne', weight: '450 мл', price: 360, description: 'Светлое фильтрованное' },
        { title: 'Сорбет малина', weight: '450 мл', description: 'Фруктовое; 4,5%', price: 440 },
     ]
   },

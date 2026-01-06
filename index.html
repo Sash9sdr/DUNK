@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -7,19 +8,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>DUNK MENU</title>
     
-    <!-- Preconnect to critical domains -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://s3.twcstorage.ru">
-    <link rel="dns-prefetch" href="https://s3.twcstorage.ru">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
     
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&family=Inter:wght@400;600&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    
-    <link href="/index.css" rel="stylesheet">
-    
-    <!-- Tailwind CSS via CDN -->
+    <!-- Tailwind CDN with Config -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -41,36 +35,54 @@
               sans: ['Inter', 'sans-serif'],
               display: ['Manrope', 'sans-serif'],
               pixel: ['"Press Start 2P"', 'cursive'],
-            },
-            backgroundImage: {
-              'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
             }
           }
         }
       }
     </script>
+
     <style>
-      /* Prevent initial white flash with dark theme */
-      html, body { background-color: #050505; color: #ededed; }
-      #root:empty::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background-color: #050505;
-        z-index: 9999;
+      @tailwind base;
+      @tailwind components;
+      @tailwind utilities;
+
+      :root { --highlight-rgb: 214 64 69; }
+      body { 
+        background-color: #050505; 
+        color: #ededed; 
+        -webkit-font-smoothing: antialiased; 
+        overflow-x: hidden;
       }
-      /* Hardware acceleration hint for smooth scrolling */
-      * { -webkit-overflow-scrolling: touch; }
+      #root:empty::before { content: ""; position: fixed; inset: 0; background-color: #050505; z-index: 9999; }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .mask-gradient-right {
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      html { scroll-behavior: smooth; scroll-padding-top: 220px; }
+      @keyframes special-blink {
+        0%, 100% { color: rgba(255, 255, 255, 0.4); opacity: 0.7; }
+        50% { color: #22c55e; opacity: 1; }
+      }
+      .animate-special-blink { animation: special-blink 2s infinite ease-in-out; }
     </style>
-<script type="importmap">
+
+    <!-- Polyfill for Import Maps (CRITICAL for older mobile devices) -->
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
 {
   "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.25",
-    "vite": "https://aistudiocdn.com/vite@^7.2.6",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom": "https://esm.sh/react-dom@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+    "framer-motion": "https://esm.sh/framer-motion@11.11.17",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
