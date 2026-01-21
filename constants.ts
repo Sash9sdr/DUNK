@@ -420,6 +420,7 @@ export const BAR_MENU: MenuSectionData[] = [
        { title: 'Люгер', weight: '450 мл', price: 390, description: 'Светлое нефильтрованное' },
        { title: 'Arne', weight: '450 мл', price: 360, description: 'Светлое фильтрованное' },
        { title: 'Сорбет малина', weight: '450 мл', description: 'Фруктовое; 4,5%', price: 440 },
+       { title: 'Sabotage', weight: '500 мл', price: 550 },
     ]
   },
   {
