@@ -68,7 +68,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ sections }) => {
         and not hidden by the screen edge or gradient mask. 
       */}
       <div className="max-w-4xl mx-auto pl-4 pr-24 py-3 overflow-x-auto no-scrollbar mask-gradient-right transform-gpu">
-        <div className="flex gap-3">
+        <div className="flex gap-2">
           {sections.map((section) => {
             const isActive = activeSection === section.id;
             return (
@@ -76,15 +76,15 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ sections }) => {
                 key={section.id}
                 onClick={(e) => scrollToSection(e, section.id)}
                 className={`
-                  flex-shrink-0 relative px-4 py-2 rounded-full transition-all duration-300 border
+                  flex-shrink-0 relative px-4 py-1.5 rounded-md transition-all duration-300 border
                   ${isActive 
-                    ? 'bg-menu-highlight/10 border-menu-highlight/30 shadow-[0_0_15px_rgba(214,64,69,0.2)]' 
-                    : 'bg-white/5 border-transparent hover:bg-white/10'
+                    ? 'bg-menu-highlight/15 border-menu-highlight/40 shadow-[0_0_10px_rgba(255,0,51,0.15)]' 
+                    : 'bg-menu-surface/50 border-white/5 hover:bg-menu-surface hover:border-white/10'
                   }
                 `}
               >
                 <span className={`
-                  text-xs font-bold uppercase tracking-wider transition-colors whitespace-nowrap
+                  text-xs font-medium uppercase tracking-wider transition-colors whitespace-nowrap
                   ${isActive ? 'text-menu-highlight' : 'text-menu-muted'}
                 `}>
                   {section.title}

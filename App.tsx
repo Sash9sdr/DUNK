@@ -33,31 +33,6 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    const target = activeMenu === 'kitchen' ? 0 : activeMenu === 'bar' ? 1 : 2;
-    
-    const controls = animate(themeProgress, target, {
-      duration: 0.8,
-      ease: [0.32, 0.72, 0, 1],
-      onUpdate: (latest) => {
-        let r, g, b;
-        if (latest <= 1) {
-          r = Math.round(214 + (51 - 214) * latest);
-          g = Math.round(64 + (102 - 64) * latest);
-          b = Math.round(69 + (255 - 69) * latest);
-        } else {
-          const p = latest - 1;
-          r = Math.round(51 + (34 - 51) * p);
-          g = Math.round(102 + (197 - 102) * p);
-          b = Math.round(255 + (94 - 255) * p);
-        }
-        document.documentElement.style.setProperty('--highlight-rgb', `${r} ${g} ${b}`);
-      }
-    });
-    
-    return () => controls.stop();
-  }, [activeMenu, themeProgress]);
-
   const handleToggle = (type: MenuType) => {
     if (type === activeMenu) return;
     setActiveMenu(type);
@@ -94,74 +69,68 @@ function App() {
         )}
       </AnimatePresence>
 
-      <div className="min-h-[100dvh] relative flex flex-col bg-[#050505] overflow-x-hidden selection:bg-menu-highlight selection:text-white transform-gpu">
+      <div className="min-h-[100dvh] relative flex flex-col bg-menu-bg overflow-x-hidden selection:bg-menu-highlight selection:text-white transform-gpu">
         
         {!isLoading && <ChristmasDecor />}
 
-        {/* Optimized Ambient Background - Reduced Blur and complexity */}
-        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden transform-gpu">
-           <div className="absolute inset-0 opacity-[0.015] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+        {/* Deep Red/Black Ambient Background */}
+        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden transform-gpu bg-menu-bg">
+           <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
 
            <motion.div 
               initial={false}
               animate={{ 
-                scale: [1, 1.02, 1],
-                opacity: [0.08, 0.12, 0.08],
-                background: activeMenu === 'kitchen' 
-                  ? 'radial-gradient(circle, rgba(214,64,69,0.08) 0%, rgba(0,0,0,0) 70%)'
-                  : activeMenu === 'bar'
-                    ? 'radial-gradient(circle, rgba(51,102,255,0.08) 0%, rgba(0,0,0,0) 70%)'
-                    : 'radial-gradient(circle, rgba(34,197,94,0.08) 0%, rgba(0,0,0,0) 70%)'
+                scale: [1, 1.05, 1],
+                opacity: [0.1, 0.15, 0.1],
               }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[100vw] h-[60vh] blur-[60px] transform-gpu" 
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-[20%] left-1/2 -translate-x-1/2 w-[120vw] h-[80vh] blur-[100px] transform-gpu bg-[radial-gradient(circle_at_50%_0%,_rgba(255,0,51,0.2)_0%,_rgba(0,0,0,0)_70%)]" 
            />
            
            <motion.div
               initial={false}
               animate={{
-                opacity: [0.08, 0.12, 0.08],
-                backgroundColor: activeMenu === 'kitchen' ? '#300000' : activeMenu === 'bar' ? '#000820' : '#02241b'
+                opacity: [0.05, 0.08, 0.05],
               }}
-              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-              className="absolute top-[10%] -left-[15%] w-[60vw] h-[60vw] rounded-full blur-[80px] transform-gpu"
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute top-[30%] -left-[20%] w-[70vw] h-[70vw] rounded-full blur-[120px] transform-gpu bg-[#ff0033]"
            />
         </div>
 
         <header className="fixed top-0 left-0 right-0 z-50 transform-gpu">
-          <div className="absolute inset-0 bg-black/85 backdrop-blur-lg border-b border-white/5 shadow-2xl"></div>
+          <div className="absolute inset-0 bg-menu-bg/90 backdrop-blur-xl border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.8)]"></div>
           
-          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center pt-2">
-            <div className="w-full flex items-center justify-center relative">
+          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center pt-3">
+            <div className="w-full flex items-center justify-center relative mb-2">
                <Logo />
                {/* Game Launch Button */}
                <button 
                   onClick={() => setIsGameOpen(true)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-500 hover:text-amber-300 transition-colors p-2 animate-pulse"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-menu-highlight hover:text-white transition-colors p-2"
                   aria-label="Play Casino"
                >
-                  <div className="border-2 border-current rounded-md px-1 font-black text-xs bg-black/50 backdrop-blur-sm">
+                  <div className="border border-current rounded px-1.5 py-0.5 font-display font-bold text-[10px] tracking-widest bg-menu-highlight/10 backdrop-blur-sm">
                       777
                   </div>
                </button>
             </div>
             
-            <div className="w-full px-4 mb-3">
+            <div className="w-full px-4 mb-4">
                <MenuToggle activeMenu={activeMenu} onToggle={handleToggle} />
             </div>
             <CategoryNav sections={currentMenu} />
           </div>
         </header>
 
-        <main className="flex-grow relative z-10 max-w-4xl mx-auto w-full px-4 pt-[220px] pb-24">
+        <main className="flex-grow relative z-10 max-w-4xl mx-auto w-full px-4 pt-[240px] pb-24">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeMenu}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="space-y-10"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="space-y-12"
             >
               {currentMenu.map((section, index) => (
                 <MenuSection key={section.id} section={section} index={index} />

@@ -4,13 +4,13 @@
 @tailwind utilities;
 
 :root {
-  /* Default DUNK RED in RGB format (214, 64, 69) */
-  --highlight-rgb: 214 64 69;
+  /* Bold Red */
+  --highlight-rgb: 255 0 51;
 }
 
 body {
-  background-color: #050505;
-  color: #ededed;
+  background-color: #000000;
+  color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
@@ -37,11 +37,11 @@ body {
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 220px; 
+  scroll-padding-top: 240px; 
 }
 
 ::selection {
-  background: rgb(var(--highlight-rgb));
+  background: rgb(var(--highlight-rgb) / 0.3);
   color: white;
 }
 
@@ -59,11 +59,11 @@ html {
 /* Optimized Special Blinking - NO text-shadow to save FPS */
 @keyframes special-blink {
   0%, 100% { 
-    color: rgba(255, 255, 255, 0.4);
-    opacity: 0.7;
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 0.8;
   }
   50% { 
-    color: #22c55e;
+    color: #10b981;
     opacity: 1;
   }
 }

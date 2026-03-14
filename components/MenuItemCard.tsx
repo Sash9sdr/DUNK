@@ -44,18 +44,18 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
     priceClasses = 'text-amber-500';
     textClasses = 'text-amber-100/60 font-serif';
   } else if (hasImage) {
-    cardStyles = 'bg-black border border-white/10 shadow-2xl overflow-hidden';
-    titleClasses = 'text-3xl sm:text-4xl font-display font-black text-white tracking-tighter leading-none uppercase';
-    priceClasses = 'text-3xl sm:text-4xl font-black text-green-500 tracking-tighter italic';
-    textClasses = 'text-white/80 text-sm sm:text-base leading-relaxed font-medium';
+    cardStyles = 'bg-menu-card border border-white/5 shadow-2xl overflow-hidden';
+    titleClasses = 'text-3xl sm:text-4xl font-display font-bold text-white tracking-tight leading-none uppercase';
+    priceClasses = 'text-3xl sm:text-4xl font-display font-bold text-menu-highlight tracking-tight';
+    textClasses = 'text-white/80 text-sm sm:text-base leading-relaxed font-normal';
   } else if (item.isHighlighted) {
-    cardStyles = 'bg-[#1a0505]/95 border border-menu-highlight/40 shadow-xl';
-    titleClasses = 'text-white font-display font-bold';
-    priceClasses = 'text-white';
+    cardStyles = 'bg-menu-surface/80 border border-menu-highlight/30 shadow-lg shadow-menu-highlight/5';
+    titleClasses = 'text-white font-display font-semibold tracking-tight';
+    priceClasses = 'text-white font-display font-semibold';
   } else {
-    cardStyles = 'bg-menu-card border border-white/5 hover:border-white/10';
-    titleClasses = 'text-menu-text font-display font-bold';
-    priceClasses = 'text-menu-highlight';
+    cardStyles = 'bg-menu-card/50 border border-white/5 hover:bg-menu-card hover:border-white/10';
+    titleClasses = 'text-menu-text font-display font-medium tracking-tight';
+    priceClasses = 'text-menu-highlight font-display font-semibold';
   }
 
   const renderDescription = (desc: string) => {
@@ -69,39 +69,39 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
   if (hasImage) {
     return (
       <motion.div 
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className={`relative overflow-hidden rounded-[3rem] ${cardStyles} min-h-[600px] max-w-2xl mx-auto group mb-12 flex flex-col transform-gpu will-change-transform`}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className={`relative overflow-hidden rounded-3xl ${cardStyles} min-h-[500px] max-w-2xl mx-auto group mb-8 flex flex-col transform-gpu will-change-transform`}
       >
-        <div className="absolute inset-0 z-0 bg-[#050505]">
+        <div className="absolute inset-0 z-0 bg-menu-bg">
           <div className="w-full h-full relative overflow-hidden">
             {/* Aspect ratio box for image stability */}
-            <div className="relative pt-[120%] sm:pt-[100%]">
+            <div className="relative pt-[100%] sm:pt-[80%]">
                <img 
                  src={item.image} 
                  alt={item.title}
                  loading="lazy"
                  decoding="async"
-                 className="absolute inset-0 w-full h-full object-contain object-top pt-6 z-10 px-4 sm:px-12 transform-gpu will-change-transform"
+                 className="absolute inset-0 w-full h-full object-cover object-center z-10 transform-gpu will-change-transform group-hover:scale-105 transition-transform duration-700 ease-out"
                />
             </div>
           </div>
 
-          {/* Compressed 20% Gradient Overlay */}
-          <div className="absolute inset-0 z-20 bg-gradient-to-t from-black via-black/95 via-black/10 via-[20%] to-transparent pointer-events-none" />
+          {/* Compressed Gradient Overlay */}
+          <div className="absolute inset-0 z-20 bg-gradient-to-t from-menu-bg via-menu-bg/80 via-[40%] to-transparent pointer-events-none" />
         </div>
 
-        <div className="mt-auto relative z-30 p-8 sm:p-12 pb-10 sm:pb-12 bg-gradient-to-t from-black via-black/80 to-transparent">
+        <div className="mt-auto relative z-30 p-6 sm:p-10 bg-gradient-to-t from-menu-bg via-menu-bg/90 to-transparent">
           <div className="space-y-4">
-            <div className="space-y-1">
-              <div className="flex flex-wrap items-center gap-2.5 mb-2">
-                 <span className="px-2 py-0.5 rounded-full bg-green-500/10 text-green-500 text-[8px] font-black uppercase tracking-[0.3em] border border-green-500/30">
+            <div className="space-y-2">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                 <span className="px-2.5 py-1 rounded-md bg-menu-highlight/10 text-menu-highlight text-[9px] font-bold uppercase tracking-widest border border-menu-highlight/20">
                    Specialty
                  </span>
                  {strengthBadge && (
-                    <span className={`px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-[0.3em] border border-white/5 ${strengthBadge.bg} ${strengthBadge.text}`}>
+                    <span className={`px-2.5 py-1 rounded-md text-[9px] font-bold uppercase tracking-widest border border-white/5 ${strengthBadge.bg} ${strengthBadge.text}`}>
                       {strengthBadge.label}
                     </span>
                  )}
@@ -113,9 +113,9 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
                {renderDescription(item.description || '')}
             </div>
 
-            <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+            <div className="pt-6 border-t border-white/10 flex items-center justify-between">
                <div className="flex flex-col">
-                  <span className="text-white/20 text-[8px] uppercase tracking-widest font-black mb-1">Dunk Signature</span>
+                  <span className="text-white/40 text-[10px] uppercase tracking-widest font-medium mb-1">Dunk Signature</span>
                   <span className={priceClasses}>{price} ₽</span>
                </div>
             </div>
@@ -135,22 +135,22 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
                   {item.title}
                 </h3>
                 {item.isSpicy && (
-                    <span className="bg-red-600 text-white rounded-full px-2 py-[2px] text-[9px] font-black uppercase tracking-tighter">
+                    <span className="bg-menu-highlight/20 text-menu-highlight border border-menu-highlight/20 rounded-md px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider">
                       Hot
                     </span>
                 )}
              </div>
-             {weight && <span className="text-[10px] uppercase tracking-widest font-bold text-menu-muted/60">{weight}</span>}
+             {weight && <span className="text-[10px] uppercase tracking-widest font-medium text-menu-muted/60">{weight}</span>}
           </div>
           <div className="flex flex-col items-end shrink-0">
-             <span className={`font-display font-black text-lg tracking-tight ${priceClasses}`}>
+             <span className={`text-lg ${priceClasses}`}>
                 {price} ₽
              </span>
           </div>
         </div>
         {item.description && (
           <div className="flex-grow">
-            <p className={`text-sm leading-relaxed my-3 font-medium ${textClasses}`}>
+            <p className={`text-sm leading-relaxed my-2 font-normal ${textClasses}`}>
               {item.description}
             </p>
           </div>
@@ -161,7 +161,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
                <button
                  key={idx}
                  onClick={() => setSelectedVarIndex(idx)}
-                 className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all border ${selectedVarIndex === idx ? 'bg-menu-highlight text-white border-menu-highlight' : 'bg-white/5 text-menu-muted border-white/5 hover:bg-white/10'}`}
+                 className={`px-3 py-1.5 rounded-lg text-[11px] font-medium transition-all border ${selectedVarIndex === idx ? 'bg-menu-highlight/20 text-menu-highlight border-menu-highlight/30 shadow-[0_0_10px_rgba(255,0,51,0.1)]' : 'bg-menu-surface/50 text-menu-muted border-white/5 hover:bg-menu-surface hover:text-white'}`}
                >
                  {v.name || 'Default'}
                </button>

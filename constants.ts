@@ -297,9 +297,9 @@ export const BAR_MENU: MenuSectionData[] = [
     id: 'firm-chay',
     title: 'Фирменный чай',
     items: [
-      { title: 'Облепиха, Груша, Розмарин', variations: [{ weight: '800 мл', price: 390 }] },
-      { title: 'Имбирь, Лимон, Мёд, Мята', variations: [{ weight: '800 мл', price: 390 }] },
-      { title: 'Малина, Лемонграсс, Тимьян', variations: [{ weight: '800 мл', price: 390 }] },
+      { title: 'Облепиха, Груша, Розмарин', variations: [{ weight: '800 мл', price: 480 }] },
+      { title: 'Имбирь, Лимон, Мёд, Мята', variations: [{ weight: '800 мл', price: 480 }] },
+      { title: 'Малина, Лемонграсс, Тимьян', variations: [{ weight: '800 мл', price: 480 }] },
     ],
   },
   {

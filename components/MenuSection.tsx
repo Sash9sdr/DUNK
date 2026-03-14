@@ -45,31 +45,31 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ section, index }) => {
       viewport={{ once: true, margin: "-100px" }}
       className={`relative ${isChineseTheme ? 'py-6 px-2 rounded-2xl bg-gradient-to-b from-[#1c0808] to-transparent border border-red-900/30' : ''} ${isSpecialSection ? 'mb-20' : ''}`}
     >
-      <div className="mb-8 flex items-center gap-4 pt-4">
+      <div className="mb-6 flex items-center gap-4 pt-4">
         {isChineseTheme ? (
           <>
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent to-amber-700"></div>
-            <h2 className="text-2xl font-serif font-medium text-amber-500 tracking-widest uppercase px-4 border-x border-amber-900/50">
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent to-amber-700/50"></div>
+            <h2 className="text-2xl font-serif font-medium text-amber-500 tracking-widest uppercase px-4 border-x border-amber-900/30">
               {section.title}
             </h2>
-            <div className="h-px flex-grow bg-gradient-to-l from-transparent to-amber-700"></div>
+            <div className="h-px flex-grow bg-gradient-to-l from-transparent to-amber-700/50"></div>
           </>
         ) : (
           <>
-            <h2 className={`text-2xl font-display font-extrabold tracking-tight uppercase ${isSpecialSection ? 'text-green-500 animate-special-blink' : 'text-white'}`}>
+            <h2 className={`text-2xl font-display font-bold tracking-tight uppercase ${isSpecialSection ? 'text-menu-highlight animate-special-blink' : 'text-white'}`}>
               {section.title}
             </h2>
-            <div className={`h-px flex-grow bg-gradient-to-r from-current to-transparent opacity-30 ${isSpecialSection ? 'text-green-500' : 'text-menu-highlight'}`}></div>
+            <div className={`h-px flex-grow bg-gradient-to-r from-current to-transparent opacity-20 ${isSpecialSection ? 'text-menu-highlight' : 'text-menu-highlight'}`}></div>
           </>
         )}
       </div>
 
       {section.note && (
         <div className={`
-          mb-8 p-4 rounded-lg text-sm leading-relaxed italic border-l-2
+          mb-6 p-4 rounded-xl text-sm leading-relaxed border
           ${isChineseTheme 
-            ? 'bg-[#2a0e0e] border-amber-700 text-amber-100/70 font-serif' 
-            : 'bg-menu-card/50 border-white/10 text-menu-muted'
+            ? 'bg-[#2a0e0e]/50 border-amber-900/30 text-amber-100/70 font-serif' 
+            : 'bg-menu-surface/30 border-white/5 text-menu-muted/80'
           }
         `}>
           {section.note.split('\n').map((line, i) => (
@@ -79,7 +79,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ section, index }) => {
       )}
 
       {section.subHeader && (
-        <h3 className="text-xs font-bold text-menu-highlight uppercase tracking-[0.15em] mb-4 mt-8 pl-1">
+        <h3 className="text-[11px] font-semibold text-menu-highlight uppercase tracking-[0.2em] mb-4 mt-8 pl-1">
           {section.subHeader}
         </h3>
       )}
@@ -87,7 +87,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ section, index }) => {
       {/* Special Layout Logic */}
       <motion.div 
         layout 
-        className={`grid gap-8 ${isSpecialSection ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}
+        className={`grid gap-4 sm:gap-6 ${isSpecialSection ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}
       >
         {section.items.map((item, idx) => (
           <motion.div layout key={`${section.id}-${idx}`} variants={itemVariants}>
