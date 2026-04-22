@@ -43,23 +43,13 @@ export const KITCHEN_MENU: MenuSectionData[] = [
         title: 'Цезарь',
         description: 'Микс салатов, черри, пармезан, соус «Цезарь».',
         variations: [
-          { name: 'с индейкой', weight: '250 г', price: 410 },
+          { name: 'с куриным филе', weight: '250 г', price: 410 },
           { name: 'с креветкой', weight: '220 г', price: 530 },
         ],
       },
       {
-        title: 'Креветка с песто',
-        description: 'Микс салатов, креветки, черри, пармезан, соус песто.',
-        variations: [{ weight: '200 г', price: 480 }],
-      },
-      {
-        title: 'Греческий',
-        description: 'Микс салатов, огурец, болгарский перец, черри, оливки и маслины, брынза, лёгкая заправка.',
-        variations: [{ weight: '240 г', price: 410 }],
-      },
-      {
-        title: 'Тёплый салат с индейкой',
-        description: 'Микс салатов, картофельные дольки, шампиньоны, черри, тёплая индейка, соус Dunk.',
+        title: 'Тёплый салат с куриным филе',
+        description: 'Микс салатов, картофельные дольки, шампиньоны, черри, тёплое куриное филе, соус Dunk.',
         variations: [{ weight: '320 г', price: 550 }],
       },
     ],
@@ -73,15 +63,7 @@ export const KITCHEN_MENU: MenuSectionData[] = [
         isSpicy: true,
         description: 'Тайский острый бульон, рис, черри, шампиньоны, кокосовое молоко и сливки, паста том ям, лайм, кунжут, кинза.',
         variations: [
-          { name: 'с индейкой', weight: '500 г', price: 580 },
-          { name: 'с морепродуктами', weight: '520 г', price: 680 },
-        ],
-      },
-      {
-        title: 'Том Кха',
-        description: 'Сливочный тайский суп с рисом, черри, шампиньонами, кокосовым молоком, сливками, пастой том кха, лаймом, кунжутом и кинзой.',
-        variations: [
-          { name: 'с индейкой', weight: '500 г', price: 580 },
+          { name: 'с куриным филе', weight: '500 г', price: 580 },
           { name: 'с морепродуктами', weight: '520 г', price: 680 },
         ],
       },
@@ -90,33 +72,14 @@ export const KITCHEN_MENU: MenuSectionData[] = [
   {
     id: 'vok-lapsha',
     title: 'Вок-лапша',
-    note: 'Лапша на выбор: удон / соба / яичная.\nПо умолчанию: карамельно‑апельсиновая — яичная, пад тай — удон, зелёный карри — соба.',
+    note: 'Лапша на выбор: удон / соба / яичная.',
     items: [
-      {
-        title: 'Карамельно‑апельсиновая',
-        description: 'Овощи, яйцо, карамельно‑апельсиновый соус, кунжут, зелёный лук.',
-        variations: [
-          { name: 'овощная', weight: '320 г', price: 390 },
-          { name: 'с индейкой', weight: '390 г', price: 470 },
-          { name: 'с морепродуктами', weight: '380 г', price: 570 },
-        ],
-      },
       {
         title: 'Пад тай',
         description: 'Овощи, яйцо, фирменный соус пад тай, кунжут, зелёный лук.',
         variations: [
           { name: 'овощной', weight: '320 г', price: 390 },
-          { name: 'с индейкой', weight: '390 г', price: 470 },
-          { name: 'с морепродуктами', weight: '380 г', price: 570 },
-        ],
-      },
-      {
-        title: 'Зелёный карри',
-        isSpicy: true,
-        description: 'Овощи, яйцо, соус зелёный карри, кунжут, зелёный лук.',
-        variations: [
-          { name: 'овощной', weight: '320 г', price: 390 },
-          { name: 'с индейкой', weight: '390 г', price: 470 },
+          { name: 'с куриным филе', weight: '390 г', price: 470 },
           { name: 'с морепродуктами', weight: '380 г', price: 570 },
         ],
       },
@@ -131,25 +94,8 @@ export const KITCHEN_MENU: MenuSectionData[] = [
         description: 'Овощи, яйцо, соевый соус, кунжутное масло, зелёный лук.',
         variations: [
           { name: 'с овощами', weight: '280 г', price: 390 },
-          { name: 'с индейкой', weight: '350 г', price: 470 },
+          { name: 'с куриным филе', weight: '350 г', price: 470 },
           { name: 'с морепродуктами', weight: '340 г', price: 570 },
-        ],
-      },
-      {
-        title: 'Жёлтый рис карри',
-        description: 'Овощи (цукини, грибы, морковь, перец), соус «жёлтый карри».',
-        variations: [
-          { name: 'с индейкой', price: 520 },
-          { name: 'с морепродуктами', price: 620 },
-        ],
-      },
-      {
-        title: 'Красный рис карри',
-        isSpicy: true,
-        description: 'Овощи (цукини, грибы, морковь, перец), соус «красный карри».',
-        variations: [
-          { name: 'с индейкой', price: 520 },
-          { name: 'с морепродуктами', price: 620 },
         ],
       },
     ],
@@ -186,12 +132,6 @@ export const KITCHEN_MENU: MenuSectionData[] = [
         description: 'Краб‑сурими, сливочный сыр, креветка, тунец, соус унаги, соус Dunk; поверхность ролла аккуратно опаляется.',
         price: 550,
       },
-      {
-        title: 'Ролл Dunk',
-        isHighlighted: true,
-        description: 'Сливочный сыр, икра, креветка, лосось, тунец, авокадо, лук кранч, крем бальзамический, соус унаги; обжаривается во фритюре.',
-        price: 600,
-      },
     ],
   },
   {
@@ -217,14 +157,14 @@ export const KITCHEN_MENU: MenuSectionData[] = [
         variations: [{ weight: '230 г', price: 320 }] 
       },
       { 
-        title: 'Лепёшка с индейкой', 
-        description: 'Лепёшка, индейка, моцарелла, черри, микс салатов, лук красный, соус карри ананас',
+        title: 'Лепёшка с куриным филе', 
+        description: 'Лепёшка, куриное филе, моцарелла, черри, микс салатов, лук красный, соус карри ананас',
         variations: [{ weight: '230 г', price: 320 }] 
       },
       { title: 'Картофельные дольки', variations: [{ weight: '200 г', price: 320 }] },
       { title: 'Картофель фри', variations: [{ weight: '200 г', price: 320 }] },
       { title: 'Луковые кольца фри', variations: [{ weight: '10 шт', price: 270 }] },
-      { title: 'Стрипсы из индейки', variations: [{ weight: '5 шт', price: 380 }] },
+      { title: 'Стрипсы из куриного филе', variations: [{ weight: '5 шт', price: 380 }] },
       { title: 'Палочки моцареллы', variations: [{ weight: '5 шт', price: 350 }] },
       { title: 'Гренки чесночные', variations: [{ weight: '120 г', price: 180 }] },
       { title: 'Начос ассорти', variations: [{ weight: '80 г', price: 300 }] },
