@@ -35,4 +35,4 @@ export interface MenuSectionData {
   subHeader?: string; // For things like "Малые роллы (8 шт.)"
 }
 
-export type MenuType = 'kitchen' | 'bar' | 'special';
+export type MenuType = 'kitchen' | 'bar' | 'special-bar' | 'special-food';

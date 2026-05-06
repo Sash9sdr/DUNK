@@ -24,7 +24,8 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        display: ['Manrope', 'sans-serif'],
+        display: ['Oswald', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
         pixel: ['"Press Start 2P"', 'cursive'],
       },
       backgroundImage: {

@@ -1,10 +1,27 @@
 
 import { MenuSectionData } from './types';
 
-export const SPECIAL_MENU: MenuSectionData[] = [
+export const SPECIAL_FOOD_MENU: MenuSectionData[] = [
+  {
+    id: 'special-food',
+    title: 'Special Food',
+    items: [
+      { title: 'Поке с курицей', price: 450, isHighlighted: true },
+      { title: 'Поке с лососем', price: 550, isHighlighted: true },
+      { title: 'Гамбургер', price: 650, isHighlighted: true },
+      { title: 'Чизбургер', price: 700, isHighlighted: true },
+      { title: 'Чикен бургер', price: 500, isHighlighted: true },
+      { title: 'Фо Га', price: 450, description: 'Традиционный вьетнамский суп с куриным филе и рисовой лапшой.', isHighlighted: true },
+      { title: 'Хот дог Данк', price: 550, isHighlighted: true },
+      { title: 'Хот дог классический', price: 450, isHighlighted: true },
+    ]
+  }
+];
+
+export const SPECIAL_BAR_MENU: MenuSectionData[] = [
   {
     id: 'special-cocktails',
-    title: 'Cocktails',
+    title: 'Special Bar',
     items: [
       {
         title: 'Grinch Gin Fizz',

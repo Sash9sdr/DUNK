@@ -16,6 +16,24 @@ body {
   margin: 0;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+#root:empty::before { 
+  content: ""; 
+  position: fixed; 
+  inset: 0; 
+  background-color: #000000; 
+  z-index: 9999; 
+}
+
+@keyframes flash-red {
+  0%, 100% { color: rgba(255, 255, 255, 0.4); }
+  50% { color: rgba(255, 0, 51, 1); text-shadow: 0 0 10px rgba(255, 0, 51, 0.5); }
+}
+
+.animate-flash-red {
+  animation: flash-red 2s infinite ease-in-out;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

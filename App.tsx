@@ -1,13 +1,12 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { KITCHEN_MENU, BAR_MENU, SPECIAL_MENU } from './constants';
+import { KITCHEN_MENU, BAR_MENU, SPECIAL_FOOD_MENU, SPECIAL_BAR_MENU } from './constants';
 import { MenuType } from './types';
 import { Logo } from './components/Logo';
 import { MenuToggle } from './components/MenuToggle';
 import { CategoryNav } from './components/CategoryNav';
 import { MenuSection } from './components/MenuSection';
 import { LoadingScreen } from './components/LoadingScreen';
-import { ChristmasDecor } from './components/ChristmasDecor';
 import { BeerGame } from './components/BeerGame';
 import { motion, AnimatePresence, useMotionValue, animate } from 'framer-motion';
 
@@ -17,11 +16,13 @@ function App() {
   const [isGameOpen, setIsGameOpen] = useState(false);
   
   const currentMenu = useMemo(() => {
-    return activeMenu === 'kitchen' 
-      ? KITCHEN_MENU 
-      : activeMenu === 'bar' 
-        ? BAR_MENU 
-        : SPECIAL_MENU;
+    switch (activeMenu) {
+      case 'kitchen': return KITCHEN_MENU;
+      case 'bar': return BAR_MENU;
+      case 'special-bar': return SPECIAL_BAR_MENU;
+      case 'special-food': return SPECIAL_FOOD_MENU;
+      default: return KITCHEN_MENU;
+    }
   }, [activeMenu]);
 
   const themeProgress = useMotionValue(0);
@@ -32,6 +33,40 @@ function App() {
     }, 600);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    let target = 0;
+    if (activeMenu === 'kitchen') target = 0;
+    else if (activeMenu === 'bar') target = 1;
+    else if (activeMenu === 'special-bar') target = 2;
+    else if (activeMenu === 'special-food') target = 3;
+    
+    const controls = animate(themeProgress, target, {
+      duration: 1,
+      ease: [0.16, 1, 0.3, 1], // spring-like elegant ease
+      onUpdate: (latest) => {
+        let r, g, b;
+        if (latest <= 1) { // Kitchen (Red) -> Bar (Blue)
+          r = Math.round(255 + (51 - 255) * latest);
+          g = Math.round(0 + (102 - 0) * latest);
+          b = Math.round(51 + (255 - 51) * latest);
+        } else if (latest <= 2) { // Bar (Blue) -> Special Bar (Purple)
+          const p = latest - 1;
+          r = Math.round(51 + (147 - 51) * p);
+          g = Math.round(102 + (51 - 102) * p);
+          b = Math.round(255 + (234 - 255) * p);
+        } else { // Special Bar (Purple) -> Special Food (Orange)
+          const p = latest - 2;
+          r = Math.round(147 + (245 - 147) * p);
+          g = Math.round(51 + (110 - 51) * p);
+          b = Math.round(234 + (11 - 234) * p);
+        }
+        document.documentElement.style.setProperty('--highlight-rgb', `${r} ${g} ${b}`);
+      }
+    });
+    
+    return () => controls.stop();
+  }, [activeMenu, themeProgress]);
 
   const handleToggle = (type: MenuType) => {
     if (type === activeMenu) return;
@@ -69,36 +104,47 @@ function App() {
         )}
       </AnimatePresence>
 
-      <div className="min-h-[100dvh] relative flex flex-col bg-menu-bg overflow-x-hidden selection:bg-menu-highlight selection:text-white transform-gpu">
+      <div className="min-h-[100dvh] relative flex flex-col bg-[#050000] overflow-x-hidden selection:bg-menu-highlight selection:text-white transform-gpu">
         
-        {!isLoading && <ChristmasDecor />}
-
-        {/* Deep Red/Black Ambient Background */}
-        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden transform-gpu bg-menu-bg">
-           <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
-
-           <motion.div 
-              initial={false}
-              animate={{ 
-                scale: [1, 1.05, 1],
-                opacity: [0.1, 0.15, 0.1],
-              }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-[20%] left-1/2 -translate-x-1/2 w-[120vw] h-[80vh] blur-[100px] transform-gpu bg-[radial-gradient(circle_at_50%_0%,_rgba(255,0,51,0.2)_0%,_rgba(0,0,0,0)_70%)]" 
-           />
+        {/* Voluminous Red Cloud Background */}
+        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden flex justify-center items-center">
+           <div className="absolute inset-0 opacity-[0.3] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
            
-           <motion.div
-              initial={false}
-              animate={{
-                opacity: [0.05, 0.08, 0.05],
-              }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute top-[30%] -left-[20%] w-[70vw] h-[70vw] rounded-full blur-[120px] transform-gpu bg-[#ff0033]"
-           />
+           <motion.div 
+             className="absolute w-[140vw] h-[100vh] top-[10%] opacity-70"
+             animate={{ 
+               x: ['-10%', '10%', '-10%'],
+               y: ['-5%', '5%', '-5%'],
+               scale: [1, 1.05, 1],
+               rotate: [0, 2, 0]
+             }}
+             transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+             style={{
+               background: 'radial-gradient(circle at center, rgba(255, 10, 60, 0.6) 0%, rgba(180, 0, 20, 0.2) 40%, rgba(0,0,0,0) 70%)',
+               filter: 'blur(80px)'
+             }}
+           ></motion.div>
+           
+           <motion.div 
+             className="absolute w-[120vw] h-[80vh] bottom-[-10%] opacity-60"
+             animate={{ 
+               x: ['10%', '-10%', '10%'],
+               y: ['5%', '-5%', '5%'],
+               scale: [1, 1.1, 1],
+               rotate: [0, -3, 0]
+             }}
+             transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+             style={{
+               background: 'radial-gradient(circle at center, rgba(255, 50, 80, 0.5) 0%, rgba(120, 0, 20, 0.15) 50%, rgba(0,0,0,0) 70%)',
+               filter: 'blur(70px)'
+             }}
+           ></motion.div>
+
+           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#000000]/30 to-[#000000]/90"></div>
         </div>
 
         <header className="fixed top-0 left-0 right-0 z-50 transform-gpu">
-          <div className="absolute inset-0 bg-menu-bg/90 backdrop-blur-xl border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.8)]"></div>
+          <div className="absolute inset-0 bg-menu-bg/60 backdrop-blur-2xl border-b border-white/5"></div>
           
           <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center pt-3">
             <div className="w-full flex items-center justify-center relative mb-2">
@@ -106,10 +152,10 @@ function App() {
                {/* Game Launch Button */}
                <button 
                   onClick={() => setIsGameOpen(true)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-menu-highlight hover:text-white transition-colors p-2"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-menu-highlight hover:text-white transition-all duration-300 p-2 opacity-80 hover:opacity-100"
                   aria-label="Play Casino"
                >
-                  <div className="border border-current rounded px-1.5 py-0.5 font-display font-bold text-[10px] tracking-widest bg-menu-highlight/10 backdrop-blur-sm">
+                  <div className="border border-menu-highlight/30 rounded-full px-2 py-0.5 font-display font-medium text-[10px] tracking-widest bg-menu-highlight/5 backdrop-blur-md">
                       777
                   </div>
                </button>

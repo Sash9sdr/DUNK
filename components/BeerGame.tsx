@@ -183,14 +183,17 @@ export const BeerGame: React.FC<BeerGameProps> = ({ isOpen, onClose }) => {
       }
 
       // Призраки: обновленная логика AI
-      ghosts.forEach(g => {
+      ghosts.forEach((g: any) => {
         const gSpeed = g.speed * dt;
         const gcx = Math.floor(g.x) + 0.5;
         const gcy = Math.floor(g.y) + 0.5;
 
         // Когда призрак в центре клетки, он решает куда идти дальше
-        if (getDist(g.x, g.y, gcx, gcy) < 0.15) {
+        if (getDist(g.x, g.y, gcx, gcy) < 0.15 && (g.lastCx !== gcx || g.lastCy !== gcy)) {
           g.x = gcx; g.y = gcy;
+          g.lastCx = gcx;
+          g.lastCy = gcy;
+
           let possibleDirs = [];
           for (let i = 0; i < 4; i++) {
             // Не идем назад
@@ -344,7 +347,9 @@ export const BeerGame: React.FC<BeerGameProps> = ({ isOpen, onClose }) => {
       else pacman.nextDir = dy > 0 ? 1 : 3;
     };
 
+    const md = () => handleInteraction();
     window.addEventListener('keydown', kd);
+    canvas.addEventListener('mousedown', md);
     canvas.addEventListener('touchstart', ts, { passive: false });
     canvas.addEventListener('touchend', te, { passive: false });
     canvas.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
@@ -352,6 +357,7 @@ export const BeerGame: React.FC<BeerGameProps> = ({ isOpen, onClose }) => {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('keydown', kd);
+      canvas.removeEventListener('mousedown', md);
     };
   }, [isOpen]);
 
@@ -371,7 +377,7 @@ export const BeerGame: React.FC<BeerGameProps> = ({ isOpen, onClose }) => {
         <canvas ref={canvasRef} style={{ width: 'min(90vw, 380px)', height: 'auto', imageRendering: 'pixelated' }} />
         
         {gameStatus !== 'PLAY' && (
-          <div className="absolute inset-0 bg-black/85 flex flex-col items-center justify-center text-center p-8 backdrop-blur-sm">
+          <div className="absolute inset-0 bg-black/85 flex flex-col items-center justify-center text-center p-8 backdrop-blur-sm pointer-events-none">
             <h2 className={`text-xl mb-6 tracking-tighter ${gameStatus === 'GAMEOVER' ? 'text-red-600' : 'text-yellow-400'}`}>
               {gameStatus === 'GAMEOVER' ? 'GAME OVER' : gameStatus === 'WIN' ? 'LEVEL CLEAR' : 'DUNK PAC'}
             </h2>

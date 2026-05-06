@@ -36,26 +36,28 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
   let cardStyles = '';
   let titleClasses = '';
   let priceClasses = '';
-  let textClasses = 'text-menu-muted/90';
+  let textClasses = 'text-white/70';
 
   if (isChinese) {
-    cardStyles = 'bg-gradient-to-br from-[#1a0505] to-[#2c0b0b] border border-amber-900/40';
+    cardStyles = 'bg-gradient-to-br from-[#1a0505]/80 to-[#2c0b0b]/80 border border-amber-900/30';
     titleClasses = 'text-amber-500/90 font-serif tracking-wide';
     priceClasses = 'text-amber-500';
     textClasses = 'text-amber-100/60 font-serif';
   } else if (hasImage) {
-    cardStyles = 'bg-menu-card border border-white/5 shadow-2xl overflow-hidden';
-    titleClasses = 'text-3xl sm:text-4xl font-display font-bold text-white tracking-tight leading-none uppercase';
-    priceClasses = 'text-3xl sm:text-4xl font-display font-bold text-menu-highlight tracking-tight';
-    textClasses = 'text-white/80 text-sm sm:text-base leading-relaxed font-normal';
+    cardStyles = 'bg-menu-card border border-white/10 overflow-hidden';
+    titleClasses = 'text-3xl sm:text-4xl font-display font-medium text-white tracking-wider uppercase';
+    priceClasses = 'text-2xl sm:text-3xl font-display font-medium text-menu-highlight';
+    textClasses = 'text-white/60 text-sm sm:text-base leading-relaxed font-light';
   } else if (item.isHighlighted) {
-    cardStyles = 'bg-menu-surface/80 border border-menu-highlight/30 shadow-lg shadow-menu-highlight/5';
-    titleClasses = 'text-white font-display font-semibold tracking-tight';
-    priceClasses = 'text-white font-display font-semibold';
+    cardStyles = 'bg-gradient-to-br from-menu-highlight/10 via-menu-highlight/5 to-menu-surface/20 border border-menu-highlight/20 backdrop-blur-lg transition-colors hover:border-menu-highlight/40';
+    titleClasses = 'text-menu-highlight font-display font-medium tracking-wider uppercase text-lg sm:text-xl';
+    priceClasses = 'text-menu-highlight font-display font-medium text-lg sm:text-xl';
+    textClasses = 'text-white/80 font-light text-sm';
   } else {
-    cardStyles = 'bg-menu-card/50 border border-white/5 hover:bg-menu-card hover:border-white/10';
-    titleClasses = 'text-menu-text font-display font-medium tracking-tight';
-    priceClasses = 'text-menu-highlight font-display font-semibold';
+    cardStyles = 'bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5 hover:from-white/[0.05] hover:border-white/10 backdrop-blur-xl transition-all duration-300';
+    titleClasses = 'text-white/90 font-display font-medium tracking-wider uppercase text-lg sm:text-xl';
+    priceClasses = 'text-menu-highlight font-display font-medium text-lg sm:text-xl';
+    textClasses = 'text-white/60 font-light text-sm';
   }
 
   const renderDescription = (desc: string) => {
@@ -126,7 +128,13 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
   }
 
   return (
-    <div className={`relative flex flex-col h-full rounded-2xl transition-all duration-300 overflow-hidden isolate transform-gpu ${cardStyles}`}>
+    <motion.div 
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className={`relative flex flex-col h-full rounded-2xl transition-all duration-300 overflow-hidden isolate transform-gpu ${cardStyles}`}
+    >
       <div className="p-5 flex flex-col h-full z-10 relative">
         <div className="flex justify-between items-start gap-3 mb-2">
           <div className="flex flex-col gap-1 flex-1">
@@ -169,6 +177,6 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };

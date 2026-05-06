@@ -56,10 +56,10 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ section, index }) => {
           </>
         ) : (
           <>
-            <h2 className={`text-2xl font-display font-bold tracking-tight uppercase ${isSpecialSection ? 'text-menu-highlight animate-special-blink' : 'text-white'}`}>
+            <h2 className={`text-2xl sm:text-3xl font-display font-medium tracking-[0.1em] uppercase ${isSpecialSection ? 'text-menu-highlight' : 'text-white'}`}>
               {section.title}
             </h2>
-            <div className={`h-px flex-grow bg-gradient-to-r from-current to-transparent opacity-20 ${isSpecialSection ? 'text-menu-highlight' : 'text-menu-highlight'}`}></div>
+            <div className={`h-px flex-grow bg-gradient-to-r from-menu-highlight/40 to-transparent`}></div>
           </>
         )}
       </div>
