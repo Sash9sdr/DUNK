@@ -14,6 +14,14 @@ function App() {
   const [activeMenu, setActiveMenu] = useState<MenuType>('kitchen');
   const [isLoading, setIsLoading] = useState(true);
   const [isGameOpen, setIsGameOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+    checkMobile(); // Check on mount
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   const currentMenu = useMemo(() => {
     switch (activeMenu) {
@@ -92,7 +100,7 @@ function App() {
 
       {/* Game Overlay */}
       <AnimatePresence>
-        {isGameOpen && (
+        {!isMobile && isGameOpen && (
           <motion.div
              initial={{ opacity: 0 }}
              animate={{ opacity: 1 }}
@@ -108,35 +116,55 @@ function App() {
         
         {/* Voluminous Red Cloud Background */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden flex justify-center items-center">
-           <div className="absolute inset-0 opacity-[0.15] md:opacity-[0.25] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+           {!isMobile && <div className="absolute inset-0 opacity-[0.25] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>}
            
-           <motion.div 
-             className="absolute w-[180vw] h-[100vh] md:w-[140vw] top-[10%] opacity-70 blur-[40px] md:blur-[80px] will-change-transform"
-             animate={{ 
-               x: ['-10%', '10%', '-10%'],
-               y: ['-5%', '5%', '-5%'],
-               scale: [1, 1.05, 1],
-               rotate: [0, 2, 0]
-             }}
-             transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-             style={{
-               background: 'radial-gradient(circle at center, rgba(255, 10, 60, 0.6) 0%, rgba(180, 0, 20, 0.2) 40%, rgba(0,0,0,0) 70%)',
-             }}
-           ></motion.div>
-           
-           <motion.div 
-             className="absolute w-[160vw] h-[80vh] md:w-[120vw] bottom-[-10%] opacity-60 blur-[30px] md:blur-[70px] will-change-transform"
-             animate={{ 
-               x: ['10%', '-10%', '10%'],
-               y: ['5%', '-5%', '5%'],
-               scale: [1, 1.1, 1],
-               rotate: [0, -3, 0]
-             }}
-             transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-             style={{
-               background: 'radial-gradient(circle at center, rgba(255, 50, 80, 0.5) 0%, rgba(120, 0, 20, 0.15) 50%, rgba(0,0,0,0) 70%)',
-             }}
-           ></motion.div>
+           {!isMobile ? (
+             <>
+               <motion.div 
+                 className="absolute w-[140vw] top-[10%] h-[100vh] opacity-70 blur-[80px] will-change-transform"
+                 animate={{ 
+                   x: ['-10%', '10%', '-10%'],
+                   y: ['-5%', '5%', '-5%'],
+                   scale: [1, 1.05, 1],
+                   rotate: [0, 2, 0]
+                 }}
+                 transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+                 style={{
+                   background: 'radial-gradient(circle at center, rgba(255, 10, 60, 0.6) 0%, rgba(180, 0, 20, 0.2) 40%, rgba(0,0,0,0) 70%)',
+                 }}
+               ></motion.div>
+               
+               <motion.div 
+                 className="absolute w-[120vw] bottom-[-10%] h-[80vh] opacity-60 blur-[70px] will-change-transform"
+                 animate={{ 
+                   x: ['10%', '-10%', '10%'],
+                   y: ['5%', '-5%', '5%'],
+                   scale: [1, 1.1, 1],
+                   rotate: [0, -3, 0]
+                 }}
+                 transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+                 style={{
+                   background: 'radial-gradient(circle at center, rgba(255, 50, 80, 0.5) 0%, rgba(120, 0, 20, 0.15) 50%, rgba(0,0,0,0) 70%)',
+                 }}
+               ></motion.div>
+             </>
+           ) : (
+             <>
+               {/* Simplified static background for mobile */}
+               <div 
+                 className="absolute w-[180vw] h-[100vh] top-[5%] opacity-50"
+                 style={{
+                   background: 'radial-gradient(circle at center, rgba(180, 10, 40, 0.4) 0%, rgba(100, 0, 20, 0.1) 50%, rgba(0,0,0,0) 70%)',
+                 }}
+               ></div>
+               <div 
+                 className="absolute w-[160vw] h-[80vh] bottom-[0] opacity-40"
+                 style={{
+                   background: 'radial-gradient(circle at center, rgba(200, 20, 50, 0.3) 0%, rgba(80, 0, 10, 0.1) 50%, rgba(0,0,0,0) 70%)',
+                 }}
+               ></div>
+             </>
+           )}
 
            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#000000]/30 to-[#000000]/90"></div>
         </div>
@@ -148,15 +176,17 @@ function App() {
             <div className="w-full flex items-center justify-center relative mb-2">
                <Logo />
                {/* Game Launch Button */}
-               <button 
-                  onClick={() => setIsGameOpen(true)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-menu-highlight hover:text-white transition-all duration-300 p-2 opacity-80 hover:opacity-100"
-                  aria-label="Play Casino"
-               >
-                  <div className="border border-menu-highlight/30 rounded-full px-2 py-0.5 font-display font-medium text-[10px] tracking-widest bg-menu-highlight/5 backdrop-blur-md">
-                      777
-                  </div>
-               </button>
+               {!isMobile && (
+                 <button 
+                    onClick={() => setIsGameOpen(true)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-menu-highlight hover:text-white transition-all duration-300 p-2 opacity-80 hover:opacity-100"
+                    aria-label="Play Casino"
+                 >
+                    <div className="border border-menu-highlight/30 rounded-full px-2 py-0.5 font-display font-medium text-[10px] tracking-widest bg-menu-highlight/5 backdrop-blur-md">
+                        777
+                    </div>
+                 </button>
+               )}
             </div>
             
             <div className="w-full px-4 mb-4">
