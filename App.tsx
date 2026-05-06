@@ -108,10 +108,10 @@ function App() {
         
         {/* Voluminous Red Cloud Background */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden flex justify-center items-center">
-           <div className="absolute inset-0 opacity-[0.3] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+           <div className="absolute inset-0 opacity-[0.15] md:opacity-[0.25] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
            
            <motion.div 
-             className="absolute w-[140vw] h-[100vh] top-[10%] opacity-70"
+             className="absolute w-[180vw] h-[100vh] md:w-[140vw] top-[10%] opacity-70 blur-[40px] md:blur-[80px] will-change-transform"
              animate={{ 
                x: ['-10%', '10%', '-10%'],
                y: ['-5%', '5%', '-5%'],
@@ -121,12 +121,11 @@ function App() {
              transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
              style={{
                background: 'radial-gradient(circle at center, rgba(255, 10, 60, 0.6) 0%, rgba(180, 0, 20, 0.2) 40%, rgba(0,0,0,0) 70%)',
-               filter: 'blur(80px)'
              }}
            ></motion.div>
            
            <motion.div 
-             className="absolute w-[120vw] h-[80vh] bottom-[-10%] opacity-60"
+             className="absolute w-[160vw] h-[80vh] md:w-[120vw] bottom-[-10%] opacity-60 blur-[30px] md:blur-[70px] will-change-transform"
              animate={{ 
                x: ['10%', '-10%', '10%'],
                y: ['5%', '-5%', '5%'],
@@ -136,7 +135,6 @@ function App() {
              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
              style={{
                background: 'radial-gradient(circle at center, rgba(255, 50, 80, 0.5) 0%, rgba(120, 0, 20, 0.15) 50%, rgba(0,0,0,0) 70%)',
-               filter: 'blur(70px)'
              }}
            ></motion.div>
 

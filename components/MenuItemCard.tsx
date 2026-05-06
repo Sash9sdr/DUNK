@@ -49,12 +49,12 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, specialTheme }
     priceClasses = 'text-2xl sm:text-3xl font-display font-medium text-menu-highlight';
     textClasses = 'text-white/60 text-sm sm:text-base leading-relaxed font-light';
   } else if (item.isHighlighted) {
-    cardStyles = 'bg-gradient-to-br from-menu-highlight/10 via-menu-highlight/5 to-menu-surface/20 border border-menu-highlight/20 backdrop-blur-lg transition-colors hover:border-menu-highlight/40';
+    cardStyles = 'bg-gradient-to-br from-menu-highlight/10 via-menu-highlight/5 to-menu-surface/20 border border-menu-highlight/20 backdrop-blur-sm md:backdrop-blur-md transition-colors hover:border-menu-highlight/40';
     titleClasses = 'text-menu-highlight font-display font-medium tracking-wider uppercase text-lg sm:text-xl';
     priceClasses = 'text-menu-highlight font-display font-medium text-lg sm:text-xl';
     textClasses = 'text-white/80 font-light text-sm';
   } else {
-    cardStyles = 'bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5 hover:from-white/[0.05] hover:border-white/10 backdrop-blur-xl transition-all duration-300';
+    cardStyles = 'bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5 hover:from-white/[0.05] hover:border-white/10 backdrop-blur-sm md:backdrop-blur-md transition-all duration-300';
     titleClasses = 'text-white/90 font-display font-medium tracking-wider uppercase text-lg sm:text-xl';
     priceClasses = 'text-menu-highlight font-display font-medium text-lg sm:text-xl';
     textClasses = 'text-white/60 font-light text-sm';
