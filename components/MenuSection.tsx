@@ -45,21 +45,26 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ section, index }) => {
       viewport={{ once: true, margin: "-100px" }}
       className={`relative ${isChineseTheme ? 'py-6 px-2 rounded-2xl bg-gradient-to-b from-[#1c0808] to-transparent border border-red-900/30' : ''} ${isSpecialSection ? 'mb-20' : ''}`}
     >
-      <div className="mb-6 flex items-center gap-4 pt-4">
+      <div className="mb-6 flex items-baseline gap-4 pt-4">
         {isChineseTheme ? (
           <>
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent to-amber-700/50"></div>
-            <h2 className="text-2xl font-serif font-medium text-amber-500 tracking-widest uppercase px-4 border-x border-amber-900/30">
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent to-amber-700/40"></div>
+            <h2 className="text-xl sm:text-2xl font-serif font-medium text-amber-500 tracking-widest uppercase px-4 border-x border-amber-900/30">
               {section.title}
             </h2>
-            <div className="h-px flex-grow bg-gradient-to-l from-transparent to-amber-700/50"></div>
+            <div className="h-px flex-grow bg-gradient-to-l from-transparent to-amber-700/40"></div>
           </>
         ) : (
           <>
-            <h2 className={`text-2xl sm:text-3xl font-display font-medium tracking-[0.1em] uppercase ${isSpecialSection ? 'text-menu-highlight' : 'text-white'}`}>
-              {section.title}
-            </h2>
-            <div className={`h-px flex-grow bg-gradient-to-r from-menu-highlight/40 to-transparent`}></div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[9px] tracking-[0.3em] font-bold text-menu-highlight/85 uppercase block mb-0.5">
+                Глава • {index + 1}
+              </span>
+              <h2 className={`text-xl sm:text-2xl font-display font-medium tracking-[0.12em] uppercase ${isSpecialSection ? 'text-menu-highlight' : 'text-white/95'}`}>
+                {section.title}
+              </h2>
+            </div>
+            <div className="h-[1px] flex-grow bg-gradient-to-r from-menu-highlight/40 via-menu-highlight/5 to-transparent"></div>
           </>
         )}
       </div>

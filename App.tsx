@@ -8,6 +8,7 @@ import { CategoryNav } from './components/CategoryNav';
 import { MenuSection } from './components/MenuSection';
 import { LoadingScreen } from './components/LoadingScreen';
 import { BeerGame } from './components/BeerGame';
+import { FluidBackground } from './components/FluidBackground';
 import { motion, AnimatePresence, useMotionValue, animate } from 'framer-motion';
 
 function App() {
@@ -114,82 +115,28 @@ function App() {
 
       <div className="min-h-[100dvh] relative flex flex-col bg-[#050000] overflow-x-hidden selection:bg-menu-highlight selection:text-white transform-gpu">
         
-        {/* Voluminous Red Cloud Background */}
-        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden flex justify-center items-center">
-           {!isMobile && <div className="absolute inset-0 opacity-[0.25] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>}
-           
-           {!isMobile ? (
-             <>
-               <motion.div 
-                 className="absolute w-[140vw] top-[10%] h-[100vh] opacity-70 blur-[80px] will-change-transform"
-                 animate={{ 
-                   x: ['-10%', '10%', '-10%'],
-                   y: ['-5%', '5%', '-5%'],
-                   scale: [1, 1.05, 1],
-                   rotate: [0, 2, 0]
-                 }}
-                 transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-                 style={{
-                   background: 'radial-gradient(circle at center, rgba(255, 10, 60, 0.6) 0%, rgba(180, 0, 20, 0.2) 40%, rgba(0,0,0,0) 70%)',
-                 }}
-               ></motion.div>
-               
-               <motion.div 
-                 className="absolute w-[120vw] bottom-[-10%] h-[80vh] opacity-60 blur-[70px] will-change-transform"
-                 animate={{ 
-                   x: ['10%', '-10%', '10%'],
-                   y: ['5%', '-5%', '5%'],
-                   scale: [1, 1.1, 1],
-                   rotate: [0, -3, 0]
-                 }}
-                 transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-                 style={{
-                   background: 'radial-gradient(circle at center, rgba(255, 50, 80, 0.5) 0%, rgba(120, 0, 20, 0.15) 50%, rgba(0,0,0,0) 70%)',
-                 }}
-               ></motion.div>
-             </>
-           ) : (
-             <>
-               {/* Simplified static background for mobile */}
-               <div 
-                 className="absolute w-[180vw] h-[100vh] top-[5%] opacity-50"
-                 style={{
-                   background: 'radial-gradient(circle at center, rgba(180, 10, 40, 0.4) 0%, rgba(100, 0, 20, 0.1) 50%, rgba(0,0,0,0) 70%)',
-                 }}
-               ></div>
-               <div 
-                 className="absolute w-[160vw] h-[80vh] bottom-[0] opacity-40"
-                 style={{
-                   background: 'radial-gradient(circle at center, rgba(200, 20, 50, 0.3) 0%, rgba(80, 0, 10, 0.1) 50%, rgba(0,0,0,0) 70%)',
-                 }}
-               ></div>
-             </>
-           )}
+        {/* Interactive Dynamic Fluid Glass Ambient Background */}
+        <FluidBackground activeMenu={activeMenu} isMobile={isMobile} />
 
-           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#000000]/30 to-[#000000]/90"></div>
-        </div>
-
-        <header className="fixed top-0 left-0 right-0 z-50 transform-gpu">
-          <div className="absolute inset-0 bg-menu-bg/60 backdrop-blur-2xl border-b border-white/5"></div>
-          
-          <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center pt-3">
-            <div className="w-full flex items-center justify-center relative mb-2">
+        <header className="fixed top-2 left-2 right-2 sm:top-4 sm:left-4 sm:right-4 z-50 transform-gpu pointer-events-none">
+          <div className="relative max-w-4xl mx-auto bg-black/40 backdrop-blur-3xl border border-white/[0.08] border-t-white/[0.12] border-b-white/[0.02] rounded-[24px] shadow-[0_12px_32px_rgba(0,0,0,0.5)] px-3 sm:px-6 pt-2 pb-1 flex flex-col items-center pointer-events-auto">
+            <div className="w-full flex items-center justify-center relative mb-1.5">
                <Logo />
                {/* Game Launch Button */}
                {!isMobile && (
                  <button 
                     onClick={() => setIsGameOpen(true)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-menu-highlight hover:text-white transition-all duration-300 p-2 opacity-80 hover:opacity-100"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-menu-highlight hover:text-white transition-all duration-300 p-2 opacity-85 hover:opacity-100"
                     aria-label="Play Casino"
                  >
-                    <div className="border border-menu-highlight/30 rounded-full px-2 py-0.5 font-display font-medium text-[10px] tracking-widest bg-menu-highlight/5 backdrop-blur-md">
-                        777
+                    <div className="border border-menu-highlight/30 rounded-full px-2.5 py-0.5 font-display font-medium text-[9px] tracking-widest bg-menu-highlight/5 backdrop-blur-md hover:border-menu-highlight/80 hover:bg-menu-highlight/10 transition-all">
+                        PACMAN 🕹️
                     </div>
                  </button>
                )}
             </div>
             
-            <div className="w-full px-4 mb-4">
+            <div className="w-full mb-2">
                <MenuToggle activeMenu={activeMenu} onToggle={handleToggle} />
             </div>
             <CategoryNav sections={currentMenu} />
@@ -204,11 +151,13 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="space-y-12"
+              className="space-y-14"
             >
-              {currentMenu.map((section, index) => (
-                <MenuSection key={section.id} section={section} index={index} />
-              ))}
+              <div className="space-y-12">
+                {currentMenu.map((section, index) => (
+                  <MenuSection key={section.id} section={section} index={index} />
+                ))}
+              </div>
             </motion.div>
           </AnimatePresence>
         </main>
