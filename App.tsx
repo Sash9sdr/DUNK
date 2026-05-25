@@ -10,18 +10,29 @@ import { LoadingScreen } from './components/LoadingScreen';
 import { BeerGame } from './components/BeerGame';
 import { FluidBackground } from './components/FluidBackground';
 import { motion, AnimatePresence, useMotionValue, animate } from 'framer-motion';
+import { ArrowUp } from 'lucide-react';
 
 function App() {
   const [activeMenu, setActiveMenu] = useState<MenuType>('kitchen');
   const [isLoading, setIsLoading] = useState(true);
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     checkMobile(); // Check on mount
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
   const currentMenu = useMemo(() => {
@@ -118,10 +129,16 @@ function App() {
         {/* Interactive Dynamic Fluid Glass Ambient Background */}
         <FluidBackground activeMenu={activeMenu} isMobile={isMobile} />
 
-        <header className="fixed top-2 left-2 right-2 sm:top-4 sm:left-4 sm:right-4 z-50 transform-gpu pointer-events-none">
-          <div className="relative max-w-4xl mx-auto bg-black/40 backdrop-blur-3xl border border-white/[0.08] border-t-white/[0.12] border-b-white/[0.02] rounded-[24px] shadow-[0_12px_32px_rgba(0,0,0,0.5)] px-3 sm:px-6 pt-2 pb-1 flex flex-col items-center pointer-events-auto">
-            <div className="w-full flex items-center justify-center relative mb-1.5">
-               <Logo />
+        <header className={`fixed z-50 transform-gpu pointer-events-none transition-all duration-300 ${scrolled ? 'top-1 left-2 right-2 sm:top-2' : 'top-2 left-2 right-2 sm:top-4 sm:left-4 sm:right-4'}`}>
+          <div className={`relative mx-auto bg-black/40 backdrop-blur-3xl border border-white/[0.08] border-t-white/[0.12] border-b-white/[0.02] shadow-[0_12px_32px_rgba(0,0,0,0.5)] transition-all duration-300 flex flex-col items-center pointer-events-auto ${
+            scrolled 
+              ? 'max-w-2xl rounded-[20px] px-2 sm:px-4 pt-1 pb-1' 
+              : 'max-w-4xl rounded-[24px] px-3 sm:px-6 pt-2 pb-1'
+          }`}>
+            <div className={`w-full flex items-center justify-center relative transition-all duration-300 origin-top overflow-hidden ${
+              scrolled ? 'h-0 opacity-0 mb-0 scale-y-0 pointers-events-none' : 'h-11 sm:h-16 opacity-100 mb-1.5'
+            }`}>
+               <Logo compact={scrolled} />
                {/* Game Launch Button */}
                {!isMobile && (
                  <button 
@@ -136,14 +153,18 @@ function App() {
                )}
             </div>
             
-            <div className="w-full mb-2">
-               <MenuToggle activeMenu={activeMenu} onToggle={handleToggle} />
+            <div className={`w-full transition-all duration-300 overflow-hidden ${
+              scrolled 
+                ? (isMobile ? 'h-0 opacity-0 mb-0 scale-y-0 pointer-events-none' : 'mb-1') 
+                : 'mb-2'
+            }`}>
+               <MenuToggle activeMenu={activeMenu} onToggle={handleToggle} compact={scrolled} />
             </div>
             <CategoryNav sections={currentMenu} />
           </div>
         </header>
 
-        <main className="flex-grow relative z-10 max-w-4xl mx-auto w-full px-4 pt-[240px] pb-24">
+        <main className="flex-grow relative z-10 max-w-4xl mx-auto w-full px-4 pt-[190px] sm:pt-[240px] pb-24">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeMenu}
@@ -171,6 +192,21 @@ function App() {
           </div>
         </footer>
       </div>
+
+      <AnimatePresence>
+        {scrolled && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="fixed bottom-6 right-6 z-50 p-3.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/[0.12] text-white hover:text-menu-highlight shadow-[0_12px_24px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.15)] hover:border-menu-highlight/40 transition-all group pointer-events-auto cursor-pointer"
+            aria-label="Наверх"
+          >
+            <ArrowUp className="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </>
   );
 }

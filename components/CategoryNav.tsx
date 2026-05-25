@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { MenuSectionData } from '../types';
 
 interface CategoryNavProps {
@@ -8,6 +8,25 @@ interface CategoryNavProps {
 
 export const CategoryNav: React.FC<CategoryNavProps> = ({ sections }) => {
   const [activeSection, setActiveSection] = useState<string>('');
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (activeSection && containerRef.current) {
+      const container = containerRef.current;
+      const activeButton = container.querySelector(`[data-section-id="${activeSection}"]`) as HTMLElement;
+      if (activeButton) {
+        const containerWidth = container.offsetWidth;
+        const buttonWidth = activeButton.offsetWidth;
+        const buttonLeft = activeButton.offsetLeft;
+        const targetScrollLeft = buttonLeft - (containerWidth / 2) + (buttonWidth / 2) - 16;
+        
+        container.scrollTo({
+          left: targetScrollLeft,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, [activeSection]);
 
   useEffect(() => {
     let ticking = false;
@@ -17,15 +36,15 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ sections }) => {
         window.requestAnimationFrame(() => {
           // Default to the first section if nothing else is found
           let current = sections[0]?.id || '';
-          const headerOffset = 220; // Approximate header height + buffer
+          const header = document.querySelector('header');
+          const headerOffset = header ? header.offsetHeight : 180;
 
           for (const section of sections) {
             const element = document.getElementById(section.id);
             if (element) {
               const rect = element.getBoundingClientRect();
-              // Check if the top of the section is near the header
-              // Use a larger detection range for better mobile feel
-              if (rect.top <= headerOffset + 100) {
+              // Check if the top of the section is near the current header bottom
+              if (rect.top <= headerOffset + 40) {
                 current = section.id;
               }
             }
@@ -67,13 +86,17 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({ sections }) => {
         Increased padding-right (pr-24) to ensure the last item is clearly visible 
         and not hidden by the screen edge or gradient mask. 
       */}
-      <div className="max-w-4xl mx-auto pl-4 pr-24 py-2.5 overflow-x-auto no-scrollbar mask-gradient-right transform-gpu">
+      <div 
+        ref={containerRef}
+        className="max-w-4xl mx-auto pl-4 pr-24 py-2.5 overflow-x-auto no-scrollbar mask-gradient-right transform-gpu"
+      >
         <div className="flex gap-2">
           {sections.map((section) => {
             const isActive = activeSection === section.id;
             return (
               <button
                 key={section.id}
+                data-section-id={section.id}
                 onClick={(e) => scrollToSection(e, section.id)}
                 className={`
                   flex-shrink-0 relative px-4 py-1.5 rounded-full transition-all duration-300 border
