@@ -34,7 +34,7 @@
     function fileName(c){return `${c.prize.replace(/[<>:"/\\|?*\u0000-\u001F]/g,'').trim()||'prize'}-${c.code}.png`}
     function claimUrl(c){const u=new URL('claim.html',location.href);u.hash='claim='+enc(c);return u.href}
     function code(){const n=crypto.getRandomValues(new Uint32Array(1))[0]%1000000;return 'DUNK-'+String(n).padStart(6,'0')}
-    function vib(p){try{if('vibrate'in navigator)navigator.vibrate(p)}catch{}}
+    function vib(p){try{if(typeof navigator!=='undefined'&&'vibrate'in navigator)navigator.vibrate(p)}catch{}}
     function ctx(){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;if(!audioCtx)audioCtx=new C;if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});return audioCtx}
     function tone(f,d,o={}){const c=ctx();if(!c)return;const s=c.currentTime+(o.delay||0),osc=c.createOscillator(),amp=c.createGain(),to=o.slideTo||f;osc.type=o.type||'sine';osc.frequency.setValueAtTime(f,s);osc.frequency.exponentialRampToValueAtTime(Math.max(1,to),s+d);amp.gain.setValueAtTime(.0001,s);amp.gain.exponentialRampToValueAtTime(o.gain||.06,s+.015);amp.gain.exponentialRampToValueAtTime(.0001,s+d);osc.connect(amp).connect(c.destination);osc.start(s);osc.stop(s+d+.04)}
     function stopSpinSound(){if(!audioCtx||!spinOsc||!spinAmp){spinOsc=null;spinAmp=null;spinFilt=null;return}const n=audioCtx.currentTime;spinAmp.gain.cancelScheduledValues(n);spinAmp.gain.setTargetAtTime(.0001,n,.08);spinOsc.stop(n+.28);spinOsc=null;spinAmp=null;spinFilt=null}
